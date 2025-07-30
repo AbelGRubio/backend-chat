@@ -4,7 +4,7 @@ from starlette.middleware.base import BaseHTTPMiddleware, \
     RequestResponseEndpoint
 from starlette.responses import Response
 
-from ..configuration import KEYCLOAK_OPENID, KEYCLOAK_ADMIN
+from ..configuration import KEYCLOAK_OPENID
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
@@ -69,19 +69,17 @@ class AuthMiddleware(BaseHTTPMiddleware):
         self, request: Request, call_next: RequestResponseEndpoint
     ) -> Response:
         """
-        The dispatch method in the AuthMiddleware class is an asynchronous
-        middleware function that processes incoming HTTP requests.
-        It checks if the request URL is in a predefined list of paths
-        that do not require authentication. If the URL is not in this
-        list, it verifies the presence of a valid API key in the request
-         headers before allowing the request to proceed.
-
-        :param request:  An instance of Request representing the incoming
+            The dispatch method in the AuthMiddleware class is an asynchronous
+            middleware function that processes incoming HTTP requests.
+            It checks if the request URL is in a predefined list of paths
+            that do not require authentication. If the URL is not in this
+            list, it verifies the presence of a valid API key in the request
+            headers before allowing the request to proceed.
+            :param request:  An instance of Request representing the incoming
             HTTP request.
-        :param call_next: A callable (RequestResponseEndpoint) that processes
+            :param call_next: A callable (RequestResponseEndpoint) that processes
             the next middleware or the actual request handler
-
-        :return: Returns a Response object, either from the next
+            :return: Returns a Response object, either from the next
             middleware/request handler or an unauthorized response.
         """
         if self._is_jump_url_(request):
