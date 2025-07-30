@@ -1,6 +1,20 @@
 # CHANGELOG
 
 
+## v1.0.0 (2025-07-30)
+
+### Features
+
+- **Abel**: Version change
+  ([`483f4a7`](https://gitlab.com/AbelGRubio/back-chat/-/commit/483f4a7929498184d101f835a49f08e08ba21284))
+
+BREAKING CHANGE: version change
+
+### Breaking Changes
+
+- **Abel**: Version change
+
+
 ## v0.0.1 (2025-07-30)
 
 ### Bug Fixes
