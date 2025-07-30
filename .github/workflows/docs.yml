@@ -3,7 +3,7 @@ name: Build & Deploy Docs
 on:
   push:
     branches:
-      - main  # o la rama donde quieras generar la documentación
+      - master
 
 jobs:
   build-docs:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'  # o la versión que uses
+        python-version: '3.12'  # o la versión que uses
 
     - name: Install dependencies
       run: |
