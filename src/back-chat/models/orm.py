@@ -1,10 +1,14 @@
+import uuid
+from datetime import datetime
+
 from peewee import Model, CharField, IntegerField, TextField, DateTimeField
 
 from ..configuration import DATABASE
-from datetime import datetime
 
 
 class ApiUser(Model):
+    uid = CharField(unique=True)
+
     name = CharField(unique=True)
     city = IntegerField()
     postal_code = CharField()
@@ -15,6 +19,7 @@ class ApiUser(Model):
 
 
 class Message(Model):
+    uid = CharField(unique=True, default=lambda: f"{uuid.uuid4().hex}")
 
     user_id = CharField()
     content = TextField()
@@ -26,6 +31,8 @@ class Message(Model):
 
 
 class UserConf(Model):
+    uid = CharField(unique=True, default=lambda: f"{uuid.uuid4().hex}")
+
     user_id = CharField(unique=True)
     user_name = CharField()
     json = CharField()
