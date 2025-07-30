@@ -1,6 +1,6 @@
 import uvicorn
 
-from app import APP, LOGGER, API_PORT, API_IP, LOG_CONFIG
+from back_chat import APP, LOGGER, API_PORT, API_IP, LOG_CONFIG
 
 
 if __name__ == '__main__':

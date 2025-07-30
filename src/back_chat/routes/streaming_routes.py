@@ -1,4 +1,4 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Request, Query
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
 
 from ..configuration import MANAGER, RABBITMQ_MANAGER, EXCHANGE_NAME
 from ..middleware.auth_websocket import WebSocketAuthMiddleware

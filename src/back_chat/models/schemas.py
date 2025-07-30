@@ -3,7 +3,7 @@ import json
 
 from pydantic import BaseModel, validator
 
-from ...utils.descriptors import MessageMode, MessageType
+from ..descriptors import MessageMode, MessageType
 
 
 class UserSchema(BaseModel):
