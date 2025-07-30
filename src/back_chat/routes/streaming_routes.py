@@ -1,10 +1,10 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
 
 from ..configuration import MANAGER, RABBITMQ_MANAGER, EXCHANGE_NAME
+from ..descriptors import MessageType
 from ..middleware.auth_websocket import WebSocketAuthMiddleware
 from ..models import Message
 from ..models.schemas import NotificationSchema, MessageSchema
-from ..utils.descriptors import MessageType
 
 ws_router = APIRouter()
 
@@ -68,7 +68,8 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
         while True:
             data = await websocket.receive_text()
             message_data = NotificationSchema.parse_raw(data)
-            await RABBITMQ_MANAGER.publish_message_to_exchange(
-                    EXCHANGE_NAME, message_data.json())
+            print(message_data)
+            # await RABBITMQ_MANAGER.publish_message_to_exchange(
+            #         EXCHANGE_NAME, message_data.json())
     except WebSocketDisconnect:
         MANAGER.disconnect(name_connection)

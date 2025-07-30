@@ -10,6 +10,6 @@ if __name__ == '__main__':
         host=API_IP,
         port=API_PORT,
         reload=False,
-        # log_config=LOG_CONFIG
+        log_config=LOG_CONFIG
     )
     LOGGER.debug("Ending.")

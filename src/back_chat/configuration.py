@@ -7,9 +7,9 @@ from peewee import SqliteDatabase
 from .services import ConnectionManager, RabbitMQManager
 from .utils.logger_api import LoggerApi
 
-__version__ = '0.3.0'
+__version__ = '0.0.0'
 
-LOGGER = LoggerApi("geodata")
+LOGGER = LoggerApi("back_chat")
 
 conf_file = os.getenv('CONF_FILE', './conf/config.cfg')
 
@@ -17,11 +17,10 @@ config = configparser.ConfigParser()
 config.read(conf_file)
 
 API_IP = config.get('conf', "api_ip", fallback='0.0.0.0')
-API_PORT = int(os.getenv('API_PORT', 5001))
-#config.getint('conf', "api_port", fallback=5005)
-API_GEO_URL = config.get('conf', "api_geo_url", fallback=None)
+API_PORT = int(config.get('conf', "api_port", fallback='8000'))
+
 DATABASE_NAME = config.get('conf', "DATABASE_NAME", fallback="my_database.db")
-API_KEY = os.getenv('API_KEY', 'token')
+
 SAVE_FOLDER = config.get('conf', 'SAVE_FOLDER', fallback='./save')
 MINUTES_REFRESH_CONF = config.getint('conf', "minutes_refresh_conf",
                                      fallback=5)
@@ -29,7 +28,7 @@ cors_ = config.get('conf', "cors_origins", fallback='').split(',')
 CORS_ORIGINS = [c_ for c_ in cors_ if c_ != '']
 
 KEYCLOAK_URL = config.get('keycloak', 'keycloak_url', fallback=None)
-KEYCLOAK_SEC_URL = config.get('keycloak', 'keycloak_sec_url', fallback=None)
+
 CLIENT_NAME = config.get('keycloak', 'client_name', fallback=None)
 CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
 REALM = config.get('keycloak', 'realm', fallback=None)
@@ -42,7 +41,6 @@ if None not in [KEYCLOAK_URL, CLIENT_SECRET]:
         client_id=CLIENT_NAME,
         realm_name=REALM,
     )
-
 
 DATABASE = SqliteDatabase(DATABASE_NAME)
 
@@ -60,7 +58,7 @@ LOG_CONFIG = {
     "disable_existing_loggers": False,
     "formatters": {
         "default": {
-            "()": "app.utils.logger_api.ColoredFormatter",
+            "()": "back_chat.utils.logger_api.ColoredFormatter",
             "format": LOGGER.msg_format,
             "datefmt": LOGGER.datetime_format,
         },

@@ -12,7 +12,6 @@ class UserSchema(BaseModel):
     city: str = '-'
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -23,7 +22,6 @@ class ShowUserSchema(BaseModel):
     city: str = '-'
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -33,7 +31,6 @@ class UserConnection(BaseModel):
     lastConnection: datetime.datetime or str = datetime.datetime.now()
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -46,7 +43,6 @@ class MessageSchema(BaseModel):
 
     class Config:
         __type_descriptor__ = MessageMode()
-        orm_mode = True
         from_attributes = True
 
     @validator('mtype')
@@ -79,7 +75,6 @@ class NotificationSchema(BaseModel):
 
     class Config:
         __type_descriptor__ = MessageMode()
-        orm_mode = True
         from_attributes = True
 
     @validator('type')

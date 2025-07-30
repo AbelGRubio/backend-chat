@@ -4,9 +4,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .configuration import (__version__, DATABASE, CORS_ORIGINS,
-                            RABBITMQ_MANAGER)
+                            RABBITMQ_MANAGER, LOGGER)
 from .middleware.auth import AuthMiddleware
-from .models import Message, UserConf
+from .models import Message, UserConf, ApiUser
 from .routes import api_router, v1_router, ws_router
 
 APP = FastAPI(
@@ -47,11 +47,18 @@ APP.add_middleware(
 )
 
 DATABASE.connect()
-DATABASE.create_tables([Message, UserConf])
+DATABASE.create_tables([Message, UserConf, ApiUser])
 
 
 @APP.on_event("startup")
 async def startup_event():
-    if await RABBITMQ_MANAGER.connect():
+    try:
+        connected = await RABBITMQ_MANAGER.connect()
+    except Exception as e:
+        LOGGER.error(f"Connection error with RabbitMQ: {e}")
+        connected = False
+
+    if connected:
         asyncio.create_task(
-            RABBITMQ_MANAGER.consume_messages_from_exchange("notifications"))
+            RABBITMQ_MANAGER.consume_messages_from_exchange("notifications")
+        )

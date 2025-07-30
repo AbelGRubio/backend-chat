@@ -4,6 +4,8 @@ from typing import Optional
 from aio_pika import connect, Message, Channel, Queue
 from aio_pika.exceptions import AMQPConnectionError
 
+from ..configuration import LOGGER
+
 
 class RabbitMQManager:
     def __init__(self, rabbitmq_url: str, manager, max_retries: int = 3):
@@ -32,11 +34,9 @@ class RabbitMQManager:
                 self.channel = await self.connection.channel()
                 return True
             except AMQPConnectionError as e:
-                print(f"Attempt {attempt + 1} failed: {e}")
+                LOGGER.warning(f"Attempt {attempt + 1} failed: {e}")
                 await asyncio.sleep(2)  # Esperar antes de reintentar
-        await self.manager.broadcast(
-            "El servicio de actualización de alarmas en tiempo real "
-            "no está disponible.")
+        await self.manager.broadcast("Redundancy service is not available.")
         return False
 
     async def publish_message(self, queue_name: str, message: str):
@@ -46,7 +46,8 @@ class RabbitMQManager:
         :param message: Mensaje a enviar.
         """
         if not self.channel:
-            print("No RabbitMQ channel available. Attempting to reconnect...")
+            LOGGER.warning(
+                "No RabbitMQ channel available. Attempting to reconnect...")
             if not await self.connect():
                 return
 
@@ -55,9 +56,9 @@ class RabbitMQManager:
                 Message(body=message.encode()),
                 routing_key=queue_name,
             )
-            print(f"Message published to {queue_name}: {message}")
+            LOGGER.debug(f"Message published to {queue_name}: {message}")
         except Exception as e:
-            print(f"Failed to publish message: {e}")
+            LOGGER.error(f"Failed to publish message: {e}")
 
     async def publish_message_to_exchange(
             self, exchange_name: str, message: str, routing_key: str = ''):
@@ -68,7 +69,8 @@ class RabbitMQManager:
         :param routing_key: Key para enrutar el mensaje.
         """
         if not self.channel:
-            print("No RabbitMQ channel available. Attempting to reconnect...")
+            LOGGER.warning(
+                "No RabbitMQ channel available. Attempting to reconnect...")
             if not await self.connect():
                 return
 
@@ -77,9 +79,10 @@ class RabbitMQManager:
                 exchange_name, type='fanout')
             await exchange.publish(Message(
                 body=message.encode()), routing_key=routing_key)
-            print(f"Message published to exchange {exchange_name}: {message}")
+            LOGGER.debug(
+                f"Message published to exchange {exchange_name}: {message}")
         except Exception as e:
-            print(f"Failed to publish message to exchange: {e}")
+            LOGGER.error(f"Failed to publish message to exchange: {e}")
 
     async def consume_messages(self, queue_name: str):
         """
@@ -87,7 +90,8 @@ class RabbitMQManager:
         :param queue_name: Nombre de la cola a consumir.
         """
         if not self.channel:
-            print("No RabbitMQ channel available. Attempting to reconnect...")
+            LOGGER.warning(
+                "No RabbitMQ channel available. Attempting to reconnect...")
             if not await self.connect():
                 return
 
@@ -96,13 +100,12 @@ class RabbitMQManager:
                                                           durable=True)
             async for message in self.queue:
                 async with message.process():
-                    print(f"Received message: {message.body.decode()}")
+                    LOGGER.debug(f"Received message: {message.body.decode()}")
                     await self.manager.broadcast(message.body.decode())
         except Exception as e:
-            print(f"Failed to consume messages: {e}")
+            LOGGER.error(f"Failed to consume messages: {e}")
             await self.manager.broadcast(
-                "El servicio de actualización de alarmas en tiempo "
-                "real no está disponible.")
+                "Redundancy service is not available.")
 
     async def consume_messages_from_exchange(self, exchange_name: str):
         """
@@ -111,7 +114,8 @@ class RabbitMQManager:
         :param exchange_name: Nombre del exchange a consumir.
         """
         if not self.channel:
-            print("No RabbitMQ channel available. Attempting to reconnect...")
+            LOGGER.warning(
+                "No RabbitMQ channel available. Attempting to reconnect...")
             if not await self.connect():
                 return
 
@@ -124,7 +128,6 @@ class RabbitMQManager:
                 async with message.process():
                     await self.manager.broadcast(message.body.decode())
         except Exception as e:
-            print(f"Failed to consume messages from exchange: {e}")
+            LOGGER.error(f"Failed to consume messages from exchange: {e}")
             await self.manager.broadcast(
-                "El servicio de actualización de alarmas en "
-                "tiempo real no está disponible.")
+                "Redundancy service is not available.")
