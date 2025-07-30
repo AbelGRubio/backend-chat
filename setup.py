@@ -21,7 +21,7 @@ setup(
     author_email="contact@agrubio.dev",
     keywords='development, setup, setuptools',
     python_requires='>=3.12',
-    url='https://gitlab.agrubio/general/backend-python.git',
+    url='https://github.com/AbelGRubio/backend-chat.git',
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(include=['back_chat', 'back_chat.*', '']),
