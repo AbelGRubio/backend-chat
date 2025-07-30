@@ -18,15 +18,11 @@ changelog_file="CHANGELOG.md"
 # build_command="python setup.py sdist; python setup.py bdist_wheel"
 version_variables = ["src/back_chat/configuration.py:__version__"]
 
-[tool.semantic_release.remote]
-type = "gitlab"
-token = {env="GITLAB_CICD_TOKEN"}
-insecure = "true"
 
 [tool.semantic_release.publish]
 dist_glob_patterns = ["dist/*"]
 upload="twine upload dist/*"
-upload_to_vcs_release = true
+upload_to_vcs_release = false
 upload_to_pypi = true
 build_command = "python setup.py sdist; python setup.py bdist_wheel"
 
