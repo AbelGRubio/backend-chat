@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v1.0.1 (2025-07-30)
+
+### Bug Fixes
+
+- **Abel**: Added semantic release workflow
+  ([`2ae3dff`](https://gitlab.com/AbelGRubio/back-chat/-/commit/2ae3dff692f8501465a777d92514581d4b3c0fec))
+
+- **Abel**: Update semantic release workflow
+  ([`50ca014`](https://gitlab.com/AbelGRubio/back-chat/-/commit/50ca014982891a36333cca784e56e126a998f07c))
+
+
 ## v1.0.0 (2025-07-30)
 
 ### Features
