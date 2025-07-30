@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.2 (2025-07-30)
+
+### Bug Fixes
+
+- **abel**: Update README.md
+  ([`d40cd72`](https://github.com/AbelGRubio/backend-chat/commit/d40cd725e4f9bceaf1fed7619ecd8eecb1ee201a))
+
+
 ## v1.0.1 (2025-07-30)
 
 ### Bug Fixes
