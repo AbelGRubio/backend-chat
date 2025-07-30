@@ -13,22 +13,26 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Necesario para que semantic-release pueda leer todos los tags
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # O la versión que uses
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
           pip install python-semantic-release==9.21.0 build twine setuptools
           pip install -r requirements.txt
 
-      - name: Configure Git (necesario si semantic-release hace commits)
+      - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Set authenticated Git remote
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       - name: Run semantic-release
         env:
