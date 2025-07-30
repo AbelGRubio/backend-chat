@@ -26,8 +26,8 @@ back\_chat.configuration module
    :show-inheritance:
    :undoc-members:
 
-back\_chat.define\_api module
------------------------------
+define\_api module
+------------------
 
 .. automodule:: back_chat.define_api
    :members:
