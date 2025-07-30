@@ -32,8 +32,8 @@ This project is a **Python-based backend** designed to handle message storage in
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/AbelGRubio/backend-chat.git
+   cd backend-chat
    ```
 
 2. Install dependencies:
@@ -71,7 +71,7 @@ INSTANCE_ID=backend-a
 
 ## ✅ Requirements
 
-- Python 3.10+
+- Python 3.12+
 - RabbitMQ
 - PostgreSQL (or equivalent)
 - Docker (optional but recommended)
