@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.4 (2025-07-30)
+
+### Bug Fixes
+
+- **abel**: Update pyproject.toml
+  ([`dc8321a`](https://github.com/AbelGRubio/back-chat/commit/dc8321a674b9b98f7f97c41f472c0d9e1627e44d))
+
+
 ## v1.0.3 (2025-07-30)
 
 ### Bug Fixes

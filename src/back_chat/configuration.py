@@ -7,7 +7,7 @@ from peewee import SqliteDatabase
 from .services import ConnectionManager, RabbitMQManager
 from .utils.logger_api import LoggerApi
 
-__version__ = '1.0.3'
+__version__ = '1.0.4'
 
 LOGGER = LoggerApi("back_chat")
 
