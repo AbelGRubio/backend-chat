@@ -1,4 +1,4 @@
-# 📨 Distributed Chat Backend with Redundancy
+# Distributed Chat Backend with Redundancy
 
 This project is a **Python-based backend** designed to handle message storage in a database and ensure **high availability and redundancy** through communication between multiple backend instances using message queues (RabbitMQ).
 
@@ -48,7 +48,7 @@ This project is a **Python-based backend** designed to handle message storage in
 ## ▶️ Running the App
 
 ```bash
-python main.py
+python src
 ```
 
 Or with FastAPI and Uvicorn:
