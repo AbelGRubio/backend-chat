@@ -1,0 +1,6 @@
+services:
+  backend:
+    image: agrubio/backend-python:$GIT_VERSION
+    build:
+      dockerfile: Dockerfile
+    privileged: true
