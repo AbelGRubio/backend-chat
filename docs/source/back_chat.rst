@@ -1,6 +1,14 @@
 back\_chat package
 ==================
 
+Module contents
+---------------
+
+.. automodule:: back_chat
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Subpackages
 -----------
 
@@ -34,10 +42,4 @@ define\_api module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
 
-.. automodule:: back_chat
-   :members:
-   :show-inheritance:
-   :undoc-members:

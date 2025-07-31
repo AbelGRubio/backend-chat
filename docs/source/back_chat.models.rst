@@ -1,6 +1,14 @@
 back\_chat.models package
 =========================
 
+Module contents
+---------------
+
+.. automodule:: back_chat.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Submodules
 ----------
 
@@ -20,10 +28,4 @@ back\_chat.models.schemas module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
 
-.. automodule:: back_chat.models
-   :members:
-   :show-inheritance:
-   :undoc-members:

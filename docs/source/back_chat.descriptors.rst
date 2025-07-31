@@ -1,17 +1,6 @@
 back\_chat.descriptors package
 ==============================
 
-Submodules
-----------
-
-back\_chat.descriptors.message module
--------------------------------------
-
-.. automodule:: back_chat.descriptors.message
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 Module contents
 ---------------
 
@@ -19,3 +8,16 @@ Module contents
    :members:
    :show-inheritance:
    :undoc-members:
+
+
+Submodules
+----------
+
+message module
+--------------
+
+.. automodule:: back_chat.descriptors.message
+   :members:
+   :show-inheritance:
+   :undoc-members:
+

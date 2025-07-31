@@ -1,6 +1,15 @@
 back\_chat.services package
 ===========================
 
+Module contents
+---------------
+
+.. automodule:: back_chat.services
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+
 Submodules
 ----------
 
@@ -20,10 +29,3 @@ back\_chat.services.rabbitmq\_manager module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: back_chat.services
-   :members:
-   :show-inheritance:
-   :undoc-members:
