@@ -1,12 +1,18 @@
 # CHANGELOG
 
 
+## v1.0.5 (2025-07-31)
+
+
 ## v1.0.4 (2025-07-30)
 
 ### Bug Fixes
 
 - **Abel**: Change version
   ([`5148d9e`](https://github.com/AbelGRubio/backend-chat/commit/5148d9e54dc72d3d767c3b3ee6430c1fef8fdea2))
+
+- **Abel**: Websocket enabled
+  ([`cfbc187`](https://github.com/AbelGRubio/backend-chat/commit/cfbc187dfc0eb90c09597b5161db47e8165343b5))
 
 
 ## v1.0.3 (2025-07-30)
