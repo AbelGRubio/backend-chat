@@ -1,8 +1,8 @@
 """
-    Definicion Esquemas de datos
-
-
+This package includes the application's data models, such as ORM definitions
+or Pydantic schemas, used for database operations and data validation.
 """
+
 
 from .orm import Message, UserConf, ApiUser
 from .schemas import (UserSchema, ShowUserSchema, MessageSchema,
