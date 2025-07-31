@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.4 (2025-07-30)
+
+### Bug Fixes
+
+- **Abel**: Change version
+  ([`5148d9e`](https://github.com/AbelGRubio/backend-chat/commit/5148d9e54dc72d3d767c3b3ee6430c1fef8fdea2))
+
+
 ## v1.0.3 (2025-07-30)
 
 ### Bug Fixes
