@@ -33,9 +33,9 @@ CLIENT_NAME = config.get('keycloak', 'client_name', fallback=None)
 CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
 REALM = config.get('keycloak', 'realm', fallback=None)
 
-KEYCLOAK_OPENID, KEYCLOAK_ADMIN = None, None
+KEYCLOAK_OPENID = None
 
-if None not in [KEYCLOAK_URL, CLIENT_SECRET]:
+if None not in [KEYCLOAK_URL]:
     KEYCLOAK_OPENID = KeycloakOpenID(
         server_url=KEYCLOAK_URL,
         client_id=CLIENT_NAME,

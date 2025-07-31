@@ -1,6 +1,7 @@
 from typing import Dict, List
 
 from fastapi import WebSocket
+from starlette.websockets import WebSocketState
 
 
 class ConnectionManager:
@@ -21,7 +22,13 @@ class ConnectionManager:
 
     async def broadcast(self, message: str):
         for connection in self.active_connections.values():
-            await connection.send_text(message)
+            if connection.client_state == WebSocketState.CONNECTED:
+                try:
+                    await connection.send_text(message)
+                except Exception as e:
+                    print(f"Error sending to client: {e}")
+            else:
+                print(f"Skipping client in state: {connection.client_state}")
 
     def get_connected_users(self) -> List[str]:
         return list(self.active_connections.keys())

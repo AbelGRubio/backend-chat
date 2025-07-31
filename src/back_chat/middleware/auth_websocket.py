@@ -1,6 +1,6 @@
 from fastapi import WebSocket
 
-from ..configuration import KEYCLOAK_OPENID, KEYCLOAK_ADMIN
+from ..configuration import KEYCLOAK_OPENID
 
 
 class WebSocketAuthMiddleware:

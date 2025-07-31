@@ -1,6 +1,8 @@
+import uuid
+
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
 
-from ..configuration import MANAGER, RABBITMQ_MANAGER, EXCHANGE_NAME
+from ..configuration import MANAGER
 from ..descriptors import MessageType
 from ..middleware.auth_websocket import WebSocketAuthMiddleware
 from ..models import Message
@@ -18,9 +20,12 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     if client_id == '':
         return websocket_auth.unauthorised(websocket)
 
+    client_id = client_id['sub'][:9] + f"{uuid.uuid4().hex[:4]}"
     await MANAGER.connect(client_id, websocket)
+
     msg_ = MessageSchema(user_id=client_id)
     msg_.connection_msg()
+
     await MANAGER.broadcast(msg_.to_json())
     try:
         while True:
@@ -28,6 +33,8 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
             message_data = MessageSchema.parse_raw(data)
 
             if message_data.mtype == MessageType.MESSAGE.value:
+                message_data.user_id = message_data.user_id \
+                    if message_data.user_id != "null" else client_id
                 Message.create(user_id=message_data.user_id,
                                content=message_data.content)
                 await MANAGER.broadcast(message_data.to_json())
@@ -36,17 +43,6 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
         msg_ = MessageSchema(user_id=client_id)
         msg_.disconnection_msg()
         await MANAGER.broadcast(msg_.to_json())
-
-
-@ws_router.websocket("/ws/signal/{client_id}")
-async def websocket_endpoint(websocket: WebSocket, client_id: str):
-    await MANAGER.connect(client_id, websocket)
-    try:
-        while True:
-            data = await websocket.receive_text()
-            await MANAGER.broadcast(data)
-    except WebSocketDisconnect:
-        MANAGER.disconnect(client_id)
 
 
 @ws_router.get("/connected_users")

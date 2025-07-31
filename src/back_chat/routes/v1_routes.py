@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from ..configuration import LOGGER, MANAGER
 from ..middleware.auth import AuthMiddleware
-from ..models import Message
+from ..models import Message, ApiUser
 from ..models.schemas import (UserSchema, ShowUserSchema,
                               MessageSchema, UserConnection)
 from ..utils.functions import (add_user, update_user, save_file)
