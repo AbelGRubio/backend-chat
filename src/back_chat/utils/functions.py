@@ -59,6 +59,17 @@ def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
 
 
 async def save_file(file: UploadFile):
+    """
+    Asynchronously saves an uploaded file to disk in chunks and notifies
+    connected clients.
+
+    The file is saved in the `SAVE_FOLDER` directory, and any spaces in the
+    filename are replaced with hyphens. The file is written in append-binary
+    mode in case it is uploaded in chunks. After saving, a broadcast message is
+    sent to all connected WebSocket clients to notify them of the new file.
+
+    :param file: The uploaded file to be saved (FastAPI's `UploadFile`).
+    """
     des_ = os.path.join(
         SAVE_FOLDER,
         file.filename.replace(' ', '-'))
