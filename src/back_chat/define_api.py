@@ -1,3 +1,11 @@
+"""
+Defines and initializes the FastAPI application, including route registration
+and middleware setup.
+
+This module serves as the main entry point for assembling the API structure
+and exposing the application instance for use with ASGI servers.
+"""
+
 import asyncio
 
 from fastapi import FastAPI

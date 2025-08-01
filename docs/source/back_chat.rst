@@ -26,20 +26,10 @@ Subpackages
 Submodules
 ----------
 
-back\_chat.configuration module
--------------------------------
+.. toctree::
+   :maxdepth: 2
 
-.. automodule:: back_chat.configuration
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-define\_api module
-------------------
-
-.. automodule:: back_chat.define_api
-   :members:
-   :show-inheritance:
-   :undoc-members:
+   back_chat.configuration
+   back_chat.define_api
 
 

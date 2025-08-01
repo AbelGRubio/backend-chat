@@ -1,3 +1,7 @@
+"""
+Entry point
+
+"""
 import uvicorn
 
 from back_chat import APP, LOGGER, API_PORT, API_IP, LOG_CONFIG

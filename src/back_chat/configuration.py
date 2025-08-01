@@ -1,3 +1,11 @@
+"""
+Handles application configuration, including environment variable parsing,
+settings management, and shared constants.
+
+This module centralizes configuration logic to provide consistent and reusable
+settings across the backend.
+"""
+
 import configparser
 import os
 
