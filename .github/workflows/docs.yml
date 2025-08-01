@@ -27,8 +27,8 @@ jobs:
 
     - name: Build HTML docs
       run: |
-        docs/make clean
-        docs/make html
+        docs\make clean
+        docs\make html
         touch build/html/.nojekyll
 
     - name: Deploy to GitHub Pages
