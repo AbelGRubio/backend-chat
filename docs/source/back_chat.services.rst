@@ -1,5 +1,5 @@
-back\_chat.services package
-===========================
+Services
+========
 
 Module contents
 ---------------
@@ -13,16 +13,16 @@ Module contents
 Submodules
 ----------
 
-back\_chat.services.connection\_manager module
-----------------------------------------------
+Connection\_manager module
+--------------------------
 
 .. automodule:: back_chat.services.connection_manager
    :members:
    :show-inheritance:
    :undoc-members:
 
-back\_chat.services.rabbitmq\_manager module
---------------------------------------------
+Rabbitmq\_manager module
+------------------------
 
 .. automodule:: back_chat.services.rabbitmq_manager
    :members:

@@ -1,5 +1,5 @@
-back\_chat.models package
-=========================
+Models
+======
 
 Module contents
 ---------------
@@ -12,16 +12,16 @@ Module contents
 Submodules
 ----------
 
-back\_chat.models.orm module
-----------------------------
+Orm module
+----------
 
 .. automodule:: back_chat.models.orm
    :members:
    :show-inheritance:
    :undoc-members:
 
-back\_chat.models.schemas module
---------------------------------
+Schemas module
+--------------
 
 .. automodule:: back_chat.models.schemas
    :members:

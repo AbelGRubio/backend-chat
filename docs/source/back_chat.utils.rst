@@ -1,5 +1,5 @@
-back\_chat.utils package
-========================
+Utils
+=====
 
 Module contents
 ---------------
@@ -13,16 +13,16 @@ Module contents
 Submodules
 ----------
 
-back\_chat.utils.functions module
----------------------------------
+Functions module
+----------------
 
 .. automodule:: back_chat.utils.functions
    :members:
    :show-inheritance:
    :undoc-members:
 
-back\_chat.utils.logger\_api module
------------------------------------
+Logger\_api module
+------------------
 
 .. automodule:: back_chat.utils.logger_api
    :members:

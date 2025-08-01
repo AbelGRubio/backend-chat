@@ -1,5 +1,5 @@
-back\_chat.middleware package
-=============================
+Middleware
+==========
 
 Module contents
 ---------------
@@ -12,7 +12,7 @@ Module contents
 Submodules
 ----------
 
-auth module
+Auth module
 -----------
 
 .. automodule:: back_chat.middleware.auth
@@ -20,7 +20,7 @@ auth module
    :show-inheritance:
    :undoc-members:
 
-auth\_websocket module
+Auth websocket module
 ----------------------
 
 .. automodule:: back_chat.middleware.auth_websocket

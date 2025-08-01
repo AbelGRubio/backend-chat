@@ -1,4 +1,4 @@
-configuration
+Configuration
 -------------
 
 .. automodule:: back_chat.configuration

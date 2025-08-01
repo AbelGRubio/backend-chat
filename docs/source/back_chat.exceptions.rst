@@ -1,5 +1,5 @@
-back\_chat.exceptions package
-=============================
+Exceptions
+==========
 
 
 Module contents
@@ -14,8 +14,8 @@ Module contents
 Submodules
 ----------
 
-error\_response module
-----------------------
+Error response module
+---------------------
 
 .. automodule:: back_chat.exceptions.error_response
    :members:

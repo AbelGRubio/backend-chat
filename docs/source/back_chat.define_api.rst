@@ -1,4 +1,4 @@
-define\_api
+Define  api
 -----------
 
 .. automodule:: back_chat.define_api

@@ -1,5 +1,5 @@
-back\_chat.descriptors package
-==============================
+Descriptors
+===========
 
 Module contents
 ---------------
@@ -13,7 +13,7 @@ Module contents
 Submodules
 ----------
 
-message module
+Message module
 --------------
 
 .. automodule:: back_chat.descriptors.message
