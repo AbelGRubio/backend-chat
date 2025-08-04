@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v1.0.9 (2025-08-04)
+
+### Bug Fixes
+
+- **Abel**: Double "" in version
+  ([`60c28ad`](https://github.com/AbelGRubio/backend-chat/commit/60c28ad3eb28857c932259a5dfb5ff0eedef8868))
+
+
 ## v1.0.8 (2025-08-04)
+
+### Bug Fixes
+
+- **Abel**: Double "" in version
+  ([`50ebf69`](https://github.com/AbelGRubio/backend-chat/commit/50ebf69bec6f5e63d3875c8cc6c84fbf5d641d62))
 
 
 ## v1.0.7 (2025-08-04)
