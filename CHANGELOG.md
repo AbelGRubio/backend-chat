@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.10 (2025-08-04)
+
+### Bug Fixes
+
+- **Abel**: Update Dockerfile
+  ([`ef378b4`](https://github.com/AbelGRubio/backend-chat/commit/ef378b4cc5dd737eea2bc037b046c49f9816c41e))
+
+
 ## v1.0.9 (2025-08-04)
 
 ### Bug Fixes
