@@ -1,10 +1,5 @@
-import json
 import os.path
-import random
-import string
-from typing import List
 
-import requests
 from fastapi import UploadFile
 
 from ..configuration import LOGGER, SAVE_FOLDER, MANAGER
@@ -27,10 +22,10 @@ def add_user(user_: UserSchema) -> str:
     """
     message = "Added user {}:{} to database."
 
-    exist_user = ApiUser.get_or_none(**user_.dict())
+    exist_user = ApiUser.get_or_none(**user_.model_dump())
 
     if not exist_user:
-        new_user = ApiUser.create(**user_.dict())
+        new_user = ApiUser.get_or_create(**user_.model_dump())
         message = message.format(new_user.uid, new_user.name)
     else:
         message = 'The user already exists!'

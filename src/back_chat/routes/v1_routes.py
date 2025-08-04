@@ -2,11 +2,13 @@
 REST API endpoints for user management, message handling, and file uploads.
 
 Includes:
+
 - Add, update, list and delete users.
 - Upload files.
 - Get recent messages and delete them.
 - Retrieve user configuration from request token.
 - Track connected users via WebSocket manager.
+
 """
 
 import asyncio
