@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.11 (2025-08-04)
+
+### Bug Fixes
+
+- **Abel**: Added multiplatform
+  ([`ddf4962`](https://github.com/AbelGRubio/backend-chat/commit/ddf4962b269ca58f89d7169d70f1af47b287398e))
+
+
 ## v1.0.10 (2025-08-04)
 
 ### Bug Fixes
