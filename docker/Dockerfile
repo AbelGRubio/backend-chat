@@ -6,11 +6,10 @@ RUN addgroup -S nonroot \
 
 USER nonroot
 
-# instalamos los requeriments necesarios
 COPY requirements.txt .
 COPY src .
 RUN python -m pip install -r requirements.txt
 
-
+EXPOSE 8000
 
 CMD ["python", "src"]
