@@ -1,6 +1,31 @@
 # CHANGELOG
 
 
+## v1.0.6 (2025-08-04)
+
+### Bug Fixes
+
+- **Abel**: Update requirements, __init__.py and added some tests
+  ([`c39bcba`](https://github.com/AbelGRubio/backend-chat/commit/c39bcbad23fac0e27441192aea9a761cf78606b8))
+
+### Documentation
+
+- **Abel**: Added documentation
+  ([`368a753`](https://github.com/AbelGRubio/backend-chat/commit/368a753468db35e037b628d899fca9e791bb037f))
+
+- **Abel**: Added documentation
+  ([`a07d0d7`](https://github.com/AbelGRubio/backend-chat/commit/a07d0d7dc5b3b8b2a4bf01bc752e8784bf43f33b))
+
+- **Abel**: Reorganization documentation
+  ([`988c745`](https://github.com/AbelGRubio/backend-chat/commit/988c745731d429804c850c12c5c17a93cc091c0e))
+
+- **abel**: Update documentation in python files
+  ([`3da8fbe`](https://github.com/AbelGRubio/backend-chat/commit/3da8fbeeb772db7a7d53486c27494de641a1db52))
+
+- **abel**: Update documentations files
+  ([`4766503`](https://github.com/AbelGRubio/backend-chat/commit/476650337fc8368b34078b24db83d57f1a8c260e))
+
+
 ## v1.0.5 (2025-07-31)
 
 
