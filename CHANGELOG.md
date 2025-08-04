@@ -1,12 +1,18 @@
 # CHANGELOG
 
 
+## v1.0.8 (2025-08-04)
+
+
 ## v1.0.7 (2025-08-04)
 
 ### Bug Fixes
 
 - **Abel**: Update Dockerfile
   ([`3d1c2e4`](https://github.com/AbelGRubio/backend-chat/commit/3d1c2e4e7696f8ba399424f9d36fe2d1e992cff0))
+
+- **Abel**: Update workflow docker-publish.yml
+  ([`b139357`](https://github.com/AbelGRubio/backend-chat/commit/b1393574da50a9bd36ca334a8710fc6bba977896))
 
 
 ## v1.0.6 (2025-08-04)
