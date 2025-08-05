@@ -1,9 +1,15 @@
 # CHANGELOG
 
 
+## v1.0.17 (2025-08-05)
+
+
 ## v1.0.16 (2025-08-05)
 
 ### Bug Fixes
+
+- **Abel**: Manual publish-pypi.yml
+  ([`7a1f73e`](https://github.com/AbelGRubio/backend-chat/commit/7a1f73e258a30e4794d23871dc8c3bdd506924a5))
 
 - **Abel**: Manual publish-pypi.yml
   ([`335510a`](https://github.com/AbelGRubio/backend-chat/commit/335510a0d2a30b5b391e3a46a490e6c1dd703262))
