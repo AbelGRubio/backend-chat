@@ -1,9 +1,15 @@
 # CHANGELOG
 
 
+## v1.0.19 (2025-08-05)
+
+
 ## v1.0.18 (2025-08-05)
 
 ### Bug Fixes
+
+- **Abel**: Update publish-pypi.yml
+  ([`9a8f106`](https://github.com/AbelGRubio/backend-chat/commit/9a8f1066655131b3ea4223c1629e191bff88e14b))
 
 - **Abel**: Update publish-pypi.yml and requirements.txt
   ([`4ce191a`](https://github.com/AbelGRubio/backend-chat/commit/4ce191a5a908d96763eec6c58ce7ac9be0a248fc))
