@@ -1,7 +1,15 @@
 # CHANGELOG
 
 
+## v1.0.14 (2025-08-05)
+
+
 ## v1.0.13 (2025-08-05)
+
+### Bug Fixes
+
+- **Abel**: Modified properties in pyproject.toml and publish-pypi.yml
+  ([`6556c7e`](https://github.com/AbelGRubio/backend-chat/commit/6556c7e894dea8395f8dfe10cebf55a688b97ab0))
 
 
 ## v1.0.12 (2025-08-05)
