@@ -1,7 +1,20 @@
 # CHANGELOG
 
 
+## v1.0.20 (2025-08-05)
+
+### Bug Fixes
+
+- **Abel**: Update requirements.txt
+  ([`7f93b0c`](https://github.com/AbelGRubio/backend-chat/commit/7f93b0cf9ac92d5ae3c3b845eafeaceb94764155))
+
+
 ## v1.0.19 (2025-08-05)
+
+### Bug Fixes
+
+- **Abel**: Update requirements.txt
+  ([`91da7f4`](https://github.com/AbelGRubio/backend-chat/commit/91da7f43ef88f5562dcb3a5dc97c9af48b442a4f))
 
 
 ## v1.0.18 (2025-08-05)
