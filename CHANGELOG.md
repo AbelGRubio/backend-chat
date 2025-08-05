@@ -1,12 +1,18 @@
 # CHANGELOG
 
 
+## v1.0.13 (2025-08-05)
+
+
 ## v1.0.12 (2025-08-05)
 
 ### Bug Fixes
 
 - **Abel**: Added publication on pypi
   ([`d8dbc52`](https://github.com/AbelGRubio/backend-chat/commit/d8dbc52b584432ff721a6894fb0cf19f64335f42))
+
+- **Abel**: Modified properties in pyproject.toml
+  ([`7937561`](https://github.com/AbelGRubio/backend-chat/commit/7937561080f6dcdf672006f0d2aa0aa5e718c17b))
 
 
 ## v1.0.11 (2025-08-04)
