@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descriptors &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exceptions" href="back_chat.exceptions.html" />
+    <link rel="prev" title="back_chat package" href="back_chat.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="back_chat.html">back_chat package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="back_chat.html#module-back_chat">Module contents</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="back_chat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Descriptors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-back_chat.descriptors">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-back_chat.descriptors.message">Message module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html">Middleware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html">Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="back_chat.html">back_chat package</a></li>
+      <li class="breadcrumb-item active">Descriptors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/back_chat.descriptors.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="descriptors">
+<h1>Descriptors<a class="headerlink" href="#descriptors" title="Link to this heading"></a></h1>
+<section id="module-back_chat.descriptors">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-back_chat.descriptors" title="Link to this heading"></a></h2>
+<p>This package contains custom Python descriptors used to control attribute
+access and behavior within models or services.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageMode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">back_chat.descriptors.</span></span><span class="sig-name descname"><span class="pre">MessageMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/back_chat/descriptors/message.html#MessageMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#back_chat.descriptors.MessageMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Descriptor class that manages attribute access for message mode fields.</p>
+<p>This descriptor validates that the assigned value is a valid member of
+the MessageType enum, storing its string value internally.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>When used as a class attribute, it enforces that only MessageType enum
+values can be assigned to that attribute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">back_chat.descriptors.</span></span><span class="sig-name descname"><span class="pre">MessageType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/back_chat/descriptors/message.html#MessageType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#back_chat.descriptors.MessageType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enumeration of possible message types used in the application.
+Each member represents a distinct category or kind of message.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.ALARM">
+<span class="sig-name descname"><span class="pre">ALARM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'alarm'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.ALARM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.CONFIGURATION">
+<span class="sig-name descname"><span class="pre">CONFIGURATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'configuration'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.CONFIGURATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.CONNECT">
+<span class="sig-name descname"><span class="pre">CONNECT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'connect'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.CONNECT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.CONNECTION">
+<span class="sig-name descname"><span class="pre">CONNECTION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'connection'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.CONNECTION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.DISCONNECT">
+<span class="sig-name descname"><span class="pre">DISCONNECT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'disconnect'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.DISCONNECT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.MESSAGE">
+<span class="sig-name descname"><span class="pre">MESSAGE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'message'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.MESSAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.NOTICE">
+<span class="sig-name descname"><span class="pre">NOTICE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'notice'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.NOTICE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.MessageType.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'warning'</span></em><a class="headerlink" href="#back_chat.descriptors.MessageType.WARNING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-back_chat.descriptors.message">
+<span id="message-module"></span><h2>Message module<a class="headerlink" href="#module-back_chat.descriptors.message" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageMode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">back_chat.descriptors.message.</span></span><span class="sig-name descname"><span class="pre">MessageMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/back_chat/descriptors/message.html#MessageMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#back_chat.descriptors.message.MessageMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Descriptor class that manages attribute access for message mode fields.</p>
+<p>This descriptor validates that the assigned value is a valid member of
+the MessageType enum, storing its string value internally.</p>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>When used as a class attribute, it enforces that only MessageType enum
+values can be assigned to that attribute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">back_chat.descriptors.message.</span></span><span class="sig-name descname"><span class="pre">MessageType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/back_chat/descriptors/message.html#MessageType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#back_chat.descriptors.message.MessageType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enumeration of possible message types used in the application.
+Each member represents a distinct category or kind of message.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.ALARM">
+<span class="sig-name descname"><span class="pre">ALARM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'alarm'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.ALARM" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.CONFIGURATION">
+<span class="sig-name descname"><span class="pre">CONFIGURATION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'configuration'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.CONFIGURATION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.CONNECT">
+<span class="sig-name descname"><span class="pre">CONNECT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'connect'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.CONNECT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.CONNECTION">
+<span class="sig-name descname"><span class="pre">CONNECTION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'connection'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.CONNECTION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.DISCONNECT">
+<span class="sig-name descname"><span class="pre">DISCONNECT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'disconnect'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.DISCONNECT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.MESSAGE">
+<span class="sig-name descname"><span class="pre">MESSAGE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'message'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.MESSAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.NOTICE">
+<span class="sig-name descname"><span class="pre">NOTICE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'notice'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.NOTICE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="back_chat.descriptors.message.MessageType.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'warning'</span></em><a class="headerlink" href="#back_chat.descriptors.message.MessageType.WARNING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="back_chat.html" class="btn btn-neutral float-left" title="back_chat package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="back_chat.exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
