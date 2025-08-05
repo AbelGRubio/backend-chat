@@ -9,6 +9,7 @@ prerelease_token = "rc"
 prerelease = false
 
 [tool.semantic_release]
+commit_message="v{version}"
 branch="master"
 upload_to_pypi = false
 upload_to_repository = false

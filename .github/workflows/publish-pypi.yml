@@ -3,7 +3,7 @@ name: Publish to PyPI
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build-and-publish:
@@ -21,10 +21,12 @@ jobs:
       - name: Install build tools
         run: |
           pip install --upgrade pip
-          pip install build twine
+          pip install wheel setuptools twine
 
       - name: Build package
-        run: python -m build
+        run: |
+          python setup.py sdist
+          python setup.py bdist_wheel
 
       - name: Publish to PyPI
         env:
