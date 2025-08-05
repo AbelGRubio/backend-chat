@@ -1,12 +1,20 @@
 # CHANGELOG
 
 
+## v1.1.0 (2025-08-05)
+
+
 ## v1.0.20 (2025-08-05)
 
 ### Bug Fixes
 
 - **Abel**: Update requirements.txt
   ([`7f93b0c`](https://github.com/AbelGRubio/backend-chat/commit/7f93b0cf9ac92d5ae3c3b845eafeaceb94764155))
+
+### Features
+
+- **Abel**: Update classifiers in setup.py
+  ([`20fa3a0`](https://github.com/AbelGRubio/backend-chat/commit/20fa3a091ba6bfa394aa88ee4e173840ccb6a35d))
 
 
 ## v1.0.19 (2025-08-05)
