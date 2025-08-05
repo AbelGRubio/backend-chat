@@ -9,9 +9,9 @@ destination_dir = '.'
 
 shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
 
-with open('requirements.txt') as f:
-    requirements = f.readlines()
-with open("README.md", 'r') as f:
+with open('requirements.txt', 'r', encoding='utf-16') as f:
+    requirements = [line.strip() for line in f if line.strip()]
+with open("README.md", 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
