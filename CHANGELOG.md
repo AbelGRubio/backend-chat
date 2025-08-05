@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.0.12 (2025-08-05)
+
+### Bug Fixes
+
+- **Abel**: Added publication on pypi
+  ([`d8dbc52`](https://github.com/AbelGRubio/backend-chat/commit/d8dbc52b584432ff721a6894fb0cf19f64335f42))
+
+
 ## v1.0.11 (2025-08-04)
 
 ### Bug Fixes
