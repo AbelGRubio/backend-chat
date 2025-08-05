@@ -1,5 +1,9 @@
 # Distributed Chat Backend with Redundancy
 
+![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
+[![PyPI version](https://badge.fury.io/py/back_chat.svg)](https://badge.fury.io/py/back_chat)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 This project is a **Python-based backend** designed to handle message storage in a database and ensure **high availability and redundancy** through communication between multiple backend instances using message queues (RabbitMQ).
 
 ## ⚙️ Key Features
@@ -54,7 +58,7 @@ python src
 Or with FastAPI and Uvicorn:
 
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+uvicorn src.back_chat:app --host 0.0.0.0 --port 8000
 ```
 
 ---
@@ -78,19 +82,6 @@ INSTANCE_ID=backend-a
 
 ---
 
-## 📦 Useful Commands
-
-- Generate semantic version:
-  ```bash
-  semantic-release version
-  ```
-
-- Run tests (if configured):
-  ```bash
-  pytest
-  ```
-
----
 
 ## 🧪 Tests
 
