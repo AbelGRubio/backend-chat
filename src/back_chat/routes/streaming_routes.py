@@ -6,9 +6,11 @@ user connection tracking. Authentication is required for both endpoints
 via a query parameter token.
 
 Routes:
+
 - `/messages`: WebSocket for real-time chat messaging.
 - `/notifications`: WebSocket for real-time notifications.
 - `/connected_users`: HTTP endpoint to retrieve the list of connected clients.
+
 """
 
 import uuid
