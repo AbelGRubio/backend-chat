@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat.descriptors.message &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../back_chat.html">back_chat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">back_chat.descriptors.message</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for back_chat.descriptors.message</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+
+<div class="viewcode-block" id="MessageType">
+<a class="viewcode-back" href="../../../back_chat.descriptors.html#back_chat.descriptors.MessageType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MessageType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumeration of possible message types used in the application.</span>
+<span class="sd">    Each member represents a distinct category or kind of message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MESSAGE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;message&#39;</span>
+    <span class="n">CONNECT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;connect&#39;</span>
+    <span class="n">DISCONNECT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;disconnect&#39;</span>
+    <span class="n">NOTICE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;notice&#39;</span>
+    <span class="n">WARNING</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;warning&#39;</span>
+    <span class="n">CONNECTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;connection&#39;</span>
+    <span class="n">ALARM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;alarm&#39;</span>
+    <span class="n">CONFIGURATION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;configuration&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="MessageMode">
+<a class="viewcode-back" href="../../../back_chat.descriptors.html#back_chat.descriptors.MessageMode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MessageMode</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Descriptor class that manages attribute access for message mode fields.</span>
+
+<span class="sd">    This descriptor validates that the assigned value is a valid member of</span>
+<span class="sd">    the MessageType enum, storing its string value internally.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        When used as a class attribute, it enforces that only MessageType enum</span>
+<span class="sd">        values can be assigned to that attribute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the descriptor instance.</span>
+
+<span class="sd">        :param name: The name of the attribute this descriptor manages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Descriptor getter method.</span>
+
+<span class="sd">        If accessed on the class, returns the descriptor itself.</span>
+<span class="sd">        If accessed on an instance, returns the stored attribute value.</span>
+
+<span class="sd">        :param instance: The instance of the class where the descriptor is</span>
+<span class="sd">        used.</span>
+<span class="sd">        :param owner: The class owning the descriptor.</span>
+<span class="sd">        :return: The current stored value of the attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Descriptor setter method.</span>
+
+<span class="sd">        Validates that the value assigned is either a MessageType enum member</span>
+<span class="sd">        or a valid string representing a MessageType member.</span>
+
+<span class="sd">        Raises a ValueError if the value is invalid.</span>
+
+<span class="sd">        :param instance: The instance of the class where the descriptor is</span>
+<span class="sd">        used.</span>
+<span class="sd">        :param value: The new value to assign to the attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">MessageType</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># Convert enum to its string value</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MessageType</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid value: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">. &quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;Must be in </span><span class="si">{</span><span class="n">MessageType</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__set_name__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Automatically called at class creation to inform the descriptor</span>
+<span class="sd">        of the attribute name it is assigned to.</span>
+
+<span class="sd">        :param owner: The owner class where the descriptor is used.</span>
+<span class="sd">        :param name: The attribute name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

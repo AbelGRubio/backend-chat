@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat.routes.streaming_routes &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../back_chat.html">back_chat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">back_chat.routes.streaming_routes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for back_chat.routes.streaming_routes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">WebSocket endpoints for real-time messaging and notifications.</span>
+
+<span class="sd">This module provides WebSocket routes for chat message exchange and</span>
+<span class="sd">user connection tracking. Authentication is required for both endpoints</span>
+<span class="sd">via a query parameter token.</span>
+
+<span class="sd">Routes:</span>
+
+<span class="sd">- `/messages`: WebSocket for real-time chat messaging.</span>
+<span class="sd">- `/notifications`: WebSocket for real-time notifications.</span>
+<span class="sd">- `/connected_users`: HTTP endpoint to retrieve the list of connected clients.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">WebSocketDisconnect</span><span class="p">,</span> <span class="n">Query</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..configuration</span><span class="w"> </span><span class="kn">import</span> <span class="n">MANAGER</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..descriptors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..middleware.auth_websocket</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebSocketAuthMiddleware</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..models.schemas</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotificationSchema</span><span class="p">,</span> <span class="n">MessageSchema</span>
+
+<span class="n">ws_router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+<span class="n">websocket_auth</span> <span class="o">=</span> <span class="n">WebSocketAuthMiddleware</span><span class="p">()</span>
+
+
+<span class="nd">@ws_router</span><span class="o">.</span><span class="n">websocket</span><span class="p">(</span><span class="s2">&quot;/messages&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">websocket_endpoint</span><span class="p">(</span><span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    WebSocket endpoint for real-time chat messaging.</span>
+
+<span class="sd">    Clients must authenticate using a token passed as a query parameter.</span>
+<span class="sd">    Once connected, messages are broadcasted to all users and stored in the</span>
+<span class="sd">    database.</span>
+
+<span class="sd">    :param websocket: WebSocket connection instance.</span>
+<span class="sd">    :param token: Authentication token passed as a query parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client_id</span> <span class="o">=</span> <span class="n">websocket_auth</span><span class="o">.</span><span class="n">is_auth</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">client_id</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">websocket_auth</span><span class="o">.</span><span class="n">unauthorised</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+
+    <span class="n">client_id</span> <span class="o">=</span> <span class="n">client_id</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">][:</span><span class="mi">9</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">await</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+
+    <span class="n">msg_</span> <span class="o">=</span> <span class="n">MessageSchema</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">)</span>
+    <span class="n">msg_</span><span class="o">.</span><span class="n">connection_msg</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">msg_</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_text</span><span class="p">()</span>
+            <span class="n">message_data</span> <span class="o">=</span> <span class="n">MessageSchema</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">message_data</span><span class="o">.</span><span class="n">mtype</span> <span class="o">==</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">MESSAGE</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="n">message_data</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">message_data</span><span class="o">.</span><span class="n">user_id</span> <span class="k">if</span> <span class="n">message_data</span><span class="o">.</span><span class="n">user_id</span> <span class="o">!=</span> <span class="s2">&quot;null&quot;</span>
+                    <span class="k">else</span> <span class="n">client_id</span>
+                <span class="p">)</span>
+                <span class="n">Message</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                    <span class="n">user_id</span><span class="o">=</span><span class="n">message_data</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">message_data</span><span class="o">.</span><span class="n">content</span>
+                <span class="p">)</span>
+                <span class="k">await</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">message_data</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+    <span class="k">except</span> <span class="n">WebSocketDisconnect</span><span class="p">:</span>
+        <span class="n">MANAGER</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="n">msg_</span> <span class="o">=</span> <span class="n">MessageSchema</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="n">msg_</span><span class="o">.</span><span class="n">disconnection_msg</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">msg_</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="get_connected_users">
+<a class="viewcode-back" href="../../../back_chat.routes.html#back_chat.routes.streaming_routes.get_connected_users">[docs]</a>
+<span class="nd">@ws_router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/connected_users&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_connected_users</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve the list of currently connected WebSocket client IDs.</span>
+
+<span class="sd">    :return: Dictionary containing a list of connected user IDs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">get_connected_users</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;connected_users&quot;</span><span class="p">:</span> <span class="n">users</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="websocket_endpoint">
+<a class="viewcode-back" href="../../../back_chat.routes.html#back_chat.routes.streaming_routes.websocket_endpoint">[docs]</a>
+<span class="nd">@ws_router</span><span class="o">.</span><span class="n">websocket</span><span class="p">(</span><span class="s2">&quot;/notifications&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">websocket_endpoint</span><span class="p">(</span><span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    WebSocket endpoint for receiving real-time notifications.</span>
+
+<span class="sd">    Clients must authenticate using a token passed as a query parameter.</span>
+<span class="sd">    The connection is registered with a combination of client ID and IP:port.</span>
+<span class="sd">    Incoming messages are parsed as notifications.</span>
+
+<span class="sd">    :param websocket: WebSocket connection instance.</span>
+<span class="sd">    :param token: Authentication token passed as a query parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client_id</span> <span class="o">=</span> <span class="n">websocket_auth</span><span class="o">.</span><span class="n">is_auth</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">client_id</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">websocket_auth</span><span class="o">.</span><span class="n">unauthorised</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+
+    <span class="n">ipp_</span> <span class="o">=</span> <span class="n">websocket</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+    <span class="n">name_connection</span> <span class="o">=</span> <span class="n">client_id</span> <span class="o">+</span> <span class="n">ipp_</span>
+    <span class="k">await</span> <span class="n">MANAGER</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">name_connection</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_text</span><span class="p">()</span>
+            <span class="n">message_data</span> <span class="o">=</span> <span class="n">NotificationSchema</span><span class="o">.</span><span class="n">parse_raw</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message_data</span><span class="p">)</span>
+            <span class="c1"># Uncomment below to publish to RabbitMQ exchange</span>
+            <span class="c1"># await RABBITMQ_MANAGER.publish_message_to_exchange(</span>
+            <span class="c1">#     EXCHANGE_NAME, message_data.json())</span>
+    <span class="k">except</span> <span class="n">WebSocketDisconnect</span><span class="p">:</span>
+        <span class="n">MANAGER</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">name_connection</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
