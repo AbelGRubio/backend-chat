@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v1.1.2 (2025-08-18)
+
+### Bug Fixes
+
+- **Abel**: Added workflow sonar
+  ([`1700318`](https://github.com/AbelGRubio/backend-chat/commit/1700318b7884cbe1be745422ab16846c251c8a2a))
+
+### Documentation
+
+- **Abel**: Streaming_routes.py documentation modified
+  ([`65e8568`](https://github.com/AbelGRubio/backend-chat/commit/65e8568ff8d0477e8f1c4c7cfcf50c80d51af2ee))
+
+- **Abel**: Update README.md
+  ([`50ac807`](https://github.com/AbelGRubio/backend-chat/commit/50ac807745db2de15278c8c856a2f6145386e48d))
+
+
 ## v1.1.1 (2025-08-05)
 
 ### Bug Fixes
