@@ -82,6 +82,11 @@ INSTANCE_ID=backend-a
 
 ---
 
+## Docker
+
+[Backend Chat](https://hub.docker.com/repository/docker/agrubio/backend-chat/general)
+
+---
 
 ## 🧪 Tests
 
