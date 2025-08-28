@@ -6,6 +6,7 @@
 /docs/build/
 /src/conf2/
 */.logs
+*/*.log.*
 */__pycache__
 .vscode
 *.pyc
