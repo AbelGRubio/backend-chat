@@ -6,6 +6,7 @@ import uvicorn
 
 from back_chat import APP, LOGGER, API_PORT, API_IP, LOG_CONFIG
 
+app = APP
 
 if __name__ == '__main__':
     LOGGER.debug("Starting...")
