@@ -58,15 +58,14 @@ DATABASE.connect()
 DATABASE.create_tables([Message, UserConf, ApiUser])
 
 
-# @APP.on_event("startup")
-# async def startup_event():
-#     try:
-#         connected = await RABBITMQ_MANAGER.connect()
-#     except Exception as e:
-#         LOGGER.error(f"Connection error with RabbitMQ: {e}")
-#         connected = False
-#
-#     if connected:
-#         asyncio.create_task(
-#             RABBITMQ_MANAGER.consume_messages_from_exchange("notifications")
-#         )
+@APP.on_event("startup")
+async def startup_event():
+    try:
+        connected = await RABBITMQ_MANAGER.connect()
+    except Exception as e:
+        LOGGER.error(f"Connection error with RabbitMQ: {e}")
+        connected = False
+    if connected:
+        asyncio.create_task(
+            RABBITMQ_MANAGER.consume_messages_from_exchange("notifications")
+        )

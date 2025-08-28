@@ -58,7 +58,11 @@ RABBITMQ_URL = config.get('rabbitmq', 'rabbitmq_url', fallback=None)
 QUEUE_NAME = config.get('rabbitmq', 'queue_name', fallback='qn')
 EXCHANGE_NAME = config.get('rabbitmq', 'exchange_name',
                            fallback='notifications')
-RABBITMQ_MANAGER = RabbitMQManager(RABBITMQ_URL, MANAGER, logger=LOGGER)
+
+user = os.getenv('RABBIT_USER', None)
+password = os.getenv('RABBIT_PSSWRD', None)
+CONNECTION_URL = RABBITMQ_URL.replace("https://", f"amqps://{user}:{password}@")
+RABBITMQ_MANAGER = RabbitMQManager(CONNECTION_URL, MANAGER, logger=LOGGER)
 
 
 LOG_CONFIG = {
