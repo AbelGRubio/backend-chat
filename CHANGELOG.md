@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v1.1.5 (2025-08-28)
+
+### Bug Fixes
+
+- **abel**: Changed reading configuration
+  ([`6a06b59`](https://github.com/AbelGRubio/backend-chat/commit/6a06b59bf5731f633a9fe444d68b549507111c8b))
+
+- **abel**: Update configuration file and logger
+  ([`a38088f`](https://github.com/AbelGRubio/backend-chat/commit/a38088f561e303f98d573ca2172024c1f017e14c))
+
+
 ## v1.1.4 (2025-08-28)
 
 ### Bug Fixes
