@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v1.1.4 (2025-08-28)
+
+### Bug Fixes
+
+- **abel**: String configuration in rabbitmq
+  ([`fbfe080`](https://github.com/AbelGRubio/backend-chat/commit/fbfe08001fbdaad9bb1613847599d2363aef0dfa))
+
+
 ## v1.1.3 (2025-08-28)
 
 ### Bug Fixes
