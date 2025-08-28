@@ -1,6 +1,20 @@
 # CHANGELOG
 
 
+## v1.1.3 (2025-08-28)
+
+### Bug Fixes
+
+- **abel**: Update configuration
+  ([`db2ab92`](https://github.com/AbelGRubio/backend-chat/commit/db2ab920331f473ae1fba1d9604a43d2ec907719))
+
+- **abel**: Update gitignore
+  ([`3933efe`](https://github.com/AbelGRubio/backend-chat/commit/3933efe173132251d1b1c91a83f0b1a5e7b0a88e))
+
+- **abel**: Update sonar
+  ([`005e019`](https://github.com/AbelGRubio/backend-chat/commit/005e019186718dee42140323f6500653f7b86587))
+
+
 ## v1.1.2 (2025-08-18)
 
 ### Bug Fixes
