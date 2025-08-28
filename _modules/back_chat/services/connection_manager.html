@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat.services.connection_manager &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../back_chat.html">back_chat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">back_chat.services.connection_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for back_chat.services.connection_manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebSocket</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.websockets</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebSocketState</span>
+
+
+<div class="viewcode-block" id="ConnectionManager">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConnectionManager</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages active WebSocket connections for a FastAPI application.</span>
+
+<span class="sd">    This class provides methods to handle client connections and</span>
+<span class="sd">    disconnections, send messages to individual clients, broadcast messages</span>
+<span class="sd">    to all connected clients, and retrieve a list of currently connected users.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the connection manager with an empty dictionary of active</span>
+<span class="sd">        connections.</span>
+<span class="sd">        The dictionary maps client IDs to their respective WebSocket instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">WebSocket</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="ConnectionManager.connect">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager.connect">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">WebSocket</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Accept a new WebSocket connection and register it.</span>
+
+<span class="sd">        :param client_id: Unique identifier for the connecting client.</span>
+<span class="sd">        :param websocket: The WebSocket connection object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="p">[</span><span class="n">client_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">websocket</span></div>
+
+
+<div class="viewcode-block" id="ConnectionManager.disconnect">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager.disconnect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a WebSocket connection from the active connections.</span>
+
+<span class="sd">        :param client_id: The ID of the client to disconnect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConnectionManager.send_personal_message">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager.send_personal_message">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_personal_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send a message to a specific connected client.</span>
+
+<span class="sd">        :param message: The text message to send.</span>
+<span class="sd">        :param client_id: The ID of the target client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">websocket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">websocket</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send_text</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConnectionManager.broadcast">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager.broadcast">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">broadcast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send a message to all currently connected clients.</span>
+
+<span class="sd">        Only clients with an active WebSocket connection (`CONNECTED` state)</span>
+<span class="sd">        will receive the message.</span>
+<span class="sd">        Any exceptions during sending will be logged to stdout.</span>
+
+<span class="sd">        :param message: The text message to broadcast.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">connection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">connection</span><span class="o">.</span><span class="n">client_state</span> <span class="o">==</span> <span class="n">WebSocketState</span><span class="o">.</span><span class="n">CONNECTED</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">connection</span><span class="o">.</span><span class="n">send_text</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error sending to client: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping client in state: </span><span class="si">{</span><span class="n">connection</span><span class="o">.</span><span class="n">client_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConnectionManager.get_connected_users">
+<a class="viewcode-back" href="../../../back_chat.services.html#back_chat.services.ConnectionManager.get_connected_users">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_connected_users</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a list of all currently connected client IDs.</span>
+
+<span class="sd">        :return: A list of client IDs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_connections</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

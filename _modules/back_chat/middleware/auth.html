@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat.middleware.auth &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../back_chat.html">back_chat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">back_chat.middleware.auth</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for back_chat.middleware.auth</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.middleware.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseHTTPMiddleware</span><span class="p">,</span> <span class="n">RequestResponseEndpoint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..configuration</span><span class="w"> </span><span class="kn">import</span> <span class="n">KEYCLOAK_OPENID</span>
+
+
+<div class="viewcode-block" id="AuthMiddleware">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AuthMiddleware</span><span class="p">(</span><span class="n">BaseHTTPMiddleware</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Middleware to handle authentication for incoming HTTP requests.</span>
+
+<span class="sd">    This middleware intercepts requests and determines if they need</span>
+<span class="sd">    authentication based on a predefined list of paths that can bypass</span>
+<span class="sd">    authentication (e.g., docs, health check).</span>
+
+<span class="sd">    If authentication is required, it checks for the presence of a valid API</span>
+<span class="sd">    key or a valid authorization token (JWT), decoding it via Keycloak OpenID</span>
+<span class="sd">    service.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        __jump_paths__ (list): List of URL paths that do not require</span>
+<span class="sd">        authentication.</span>
+<span class="sd">        __auth__ (str): Header key name for authorization token.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__jump_paths__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/docs&#39;</span><span class="p">,</span> <span class="s1">&#39;/openapi.json&#39;</span><span class="p">,</span> <span class="s1">&#39;/redoc&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;/health&#39;</span><span class="p">,</span> <span class="s1">&#39;/favicon.ico&#39;</span><span class="p">]</span>
+    <span class="n">__auth__</span> <span class="o">=</span> <span class="s1">&#39;authorization&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the middleware by calling the parent class initializer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AuthMiddleware.unauthorised">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.unauthorised">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unauthorised</span><span class="p">(</span>
+            <span class="n">code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">401</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Unauthorised&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JSONResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a JSON response indicating an unauthorized access attempt.</span>
+
+<span class="sd">        :param code: HTTP status code to return (default 401).</span>
+<span class="sd">        :param msg: Message to include in the response body</span>
+<span class="sd">        (default &#39;Unauthorised&#39;).</span>
+<span class="sd">        :return: JSONResponse with status code and message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">JSONResponse</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_jump_url_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the requested URL path is in the list of paths that do not</span>
+<span class="sd">        require auth.</span>
+
+<span class="sd">        :param request: The incoming HTTP request.</span>
+<span class="sd">        :return: True if the path should bypass authentication, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jump_paths__</span>
+
+<div class="viewcode-block" id="AuthMiddleware.decode_token">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.decode_token">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decode_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Decode a JWT token after stripping &#39;Bearer &#39; prefix.</span>
+
+<span class="sd">        :param token: Raw token string from the authorization header.</span>
+<span class="sd">        :return: Decoded token payload (usually a dict).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">token_</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Bearer &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">KEYCLOAK_OPENID</span><span class="o">.</span><span class="n">decode_token</span><span class="p">(</span><span class="n">token_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">payload</span></div>
+
+
+<div class="viewcode-block" id="AuthMiddleware.get_header_token">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.get_header_token">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_header_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the authorization token from the request headers.</span>
+
+<span class="sd">        :param request: The incoming HTTP request.</span>
+<span class="sd">        :return: Authorization header value or empty string if missing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__auth__</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AuthMiddleware.get_user_config">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.get_user_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract user configuration by decoding the JWT token from the request.</span>
+
+<span class="sd">        :param request: The incoming HTTP request.</span>
+<span class="sd">        :return: Decoded token payload dict if valid, else None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_header_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">decode_token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">decode_token</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="AuthMiddleware.is_auth">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.is_auth">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether the request is authenticated.</span>
+
+<span class="sd">        Currently implemented by trying to get user config from token.</span>
+
+<span class="sd">        :param request: The incoming HTTP request.</span>
+<span class="sd">        :return: User configuration dict if authenticated, else None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_user_config</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AuthMiddleware.dispatch">
+<a class="viewcode-back" href="../../../back_chat.middleware.html#back_chat.middleware.AuthMiddleware.dispatch">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">dispatch</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">call_next</span><span class="p">:</span> <span class="n">RequestResponseEndpoint</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process incoming HTTP request, enforcing authentication if required.</span>
+
+<span class="sd">        If the request path is in the bypass list, it proceeds without checks.</span>
+<span class="sd">        Otherwise, it verifies authentication and returns an unauthorized</span>
+<span class="sd">        response if authentication fails.</span>
+
+<span class="sd">        :param request: The incoming HTTP request.</span>
+<span class="sd">        :param call_next: The next middleware or request handler callable.</span>
+<span class="sd">        :return: Response from next handler or unauthorized response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_jump_url_</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">call_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unauthorised</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_auth</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">call_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

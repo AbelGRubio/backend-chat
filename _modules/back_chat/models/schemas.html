@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat.models.schemas &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../back_chat.html">back_chat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">back_chat.models.schemas</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for back_chat.models.schemas</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">validator</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..descriptors</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageMode</span><span class="p">,</span> <span class="n">MessageType</span>
+
+
+<div class="viewcode-block" id="UserSchema">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.UserSchema">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UserSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">postal_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">city</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+
+<div class="viewcode-block" id="UserSchema.Config">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.UserSchema.Config">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+        <span class="n">orm_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ShowUserSchema">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.ShowUserSchema">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ShowUserSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">postal_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">city</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+
+<div class="viewcode-block" id="ShowUserSchema.Config">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.ShowUserSchema.Config">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+        <span class="n">orm_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="UserConnection">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.UserConnection">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UserConnection</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;online&#39;</span>
+    <span class="n">lastConnection</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="ow">or</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+<div class="viewcode-block" id="UserConnection.Config">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.UserConnection.Config">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MessageSchema">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MessageSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="ow">or</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">mtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">MESSAGE</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">isMine</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="MessageSchema.Config">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema.Config">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+        <span class="n">__type_descriptor__</span> <span class="o">=</span> <span class="n">MessageMode</span><span class="p">()</span>
+        <span class="n">orm_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="MessageSchema.validate_mode">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema.validate_mode">[docs]</a>
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;mtype&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_mode</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">MessageType</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">__type_descriptor__</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="MessageSchema.connection_msg">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema.connection_msg">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connection_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mtype</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">CONNECT</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;join the chat&quot;</span></div>
+
+
+<div class="viewcode-block" id="MessageSchema.disconnection_msg">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema.disconnection_msg">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnection_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mtype</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">DISCONNECT</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;left the chat&quot;</span></div>
+
+
+<div class="viewcode-block" id="MessageSchema.to_json">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.MessageSchema.to_json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Client </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">dict_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dict_</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dict_</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="NotificationSchema">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NotificationSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="ow">or</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">MESSAGE</span><span class="o">.</span><span class="n">value</span>
+
+<div class="viewcode-block" id="NotificationSchema.Config">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema.Config">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Config</span><span class="p">:</span>
+        <span class="n">__type_descriptor__</span> <span class="o">=</span> <span class="n">MessageMode</span><span class="p">()</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="NotificationSchema.validate_mode">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema.validate_mode">[docs]</a>
+    <span class="nd">@validator</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_mode</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">MessageType</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">__type_descriptor__</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+
+<div class="viewcode-block" id="NotificationSchema.connection_msg">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema.connection_msg">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connection_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mtype</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">CONNECT</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;join the chat&quot;</span></div>
+
+
+<div class="viewcode-block" id="NotificationSchema.disconnection_msg">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema.disconnection_msg">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnection_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mtype</span> <span class="o">=</span> <span class="n">MessageType</span><span class="o">.</span><span class="n">DISCONNECT</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;left the chat&quot;</span></div>
+
+
+<div class="viewcode-block" id="NotificationSchema.to_json">
+<a class="viewcode-back" href="../../../back_chat.models.html#back_chat.models.NotificationSchema.to_json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Client </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">dict_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">dict_</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dict_</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

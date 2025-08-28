@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>back_chat package &mdash; Backend Chat 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1ed6394b"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Descriptors" href="back_chat.descriptors.html" />
+    <link rel="prev" title="Backend Chat documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Backend Chat
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">back_chat package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-back_chat">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.descriptors.html">Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html">Middleware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html">Routes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html">Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.configuration.html">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.define_api.html">Define  api</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Backend Chat</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">back_chat package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/back_chat.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="back-chat-package">
+<h1>back_chat package<a class="headerlink" href="#back-chat-package" title="Link to this heading"></a></h1>
+<section id="module-back_chat">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-back_chat" title="Link to this heading"></a></h2>
+<p>back_chat is the backend service for a real-time chat application, built with
+Python and designed with redundancy and reliability in mind.</p>
+<p>It provides WebSocket-based messaging, user session handling, and integration
+with authentication systems. The architecture supports failover and horizontal
+scalability to ensure consistent performance and uptime.</p>
+</section>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.descriptors.html">Descriptors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.descriptors.html#module-back_chat.descriptors">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageMode"><code class="docutils literal notranslate"><span class="pre">MessageMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType"><code class="docutils literal notranslate"><span class="pre">MessageType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.ALARM"><code class="docutils literal notranslate"><span class="pre">MessageType.ALARM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.CONFIGURATION"><code class="docutils literal notranslate"><span class="pre">MessageType.CONFIGURATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.CONNECT"><code class="docutils literal notranslate"><span class="pre">MessageType.CONNECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.CONNECTION"><code class="docutils literal notranslate"><span class="pre">MessageType.CONNECTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.DISCONNECT"><code class="docutils literal notranslate"><span class="pre">MessageType.DISCONNECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.MESSAGE"><code class="docutils literal notranslate"><span class="pre">MessageType.MESSAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.NOTICE"><code class="docutils literal notranslate"><span class="pre">MessageType.NOTICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.MessageType.WARNING"><code class="docutils literal notranslate"><span class="pre">MessageType.WARNING</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.descriptors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.descriptors.html#module-back_chat.descriptors.message">Message module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageMode"><code class="docutils literal notranslate"><span class="pre">MessageMode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType"><code class="docutils literal notranslate"><span class="pre">MessageType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.ALARM"><code class="docutils literal notranslate"><span class="pre">MessageType.ALARM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.CONFIGURATION"><code class="docutils literal notranslate"><span class="pre">MessageType.CONFIGURATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.CONNECT"><code class="docutils literal notranslate"><span class="pre">MessageType.CONNECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.CONNECTION"><code class="docutils literal notranslate"><span class="pre">MessageType.CONNECTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.DISCONNECT"><code class="docutils literal notranslate"><span class="pre">MessageType.DISCONNECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.MESSAGE"><code class="docutils literal notranslate"><span class="pre">MessageType.MESSAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.NOTICE"><code class="docutils literal notranslate"><span class="pre">MessageType.NOTICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.descriptors.html#back_chat.descriptors.message.MessageType.WARNING"><code class="docutils literal notranslate"><span class="pre">MessageType.WARNING</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.exceptions.html#module-back_chat.exceptions">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html#back_chat.exceptions.BadRequest"><code class="docutils literal notranslate"><span class="pre">BadRequest</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html#back_chat.exceptions.ErrorHTTPException"><code class="docutils literal notranslate"><span class="pre">ErrorHTTPException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.exceptions.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.exceptions.html#module-back_chat.exceptions.error_response">Error response module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html#back_chat.exceptions.error_response.BadRequest"><code class="docutils literal notranslate"><span class="pre">BadRequest</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.exceptions.html#back_chat.exceptions.error_response.ErrorHTTPException"><code class="docutils literal notranslate"><span class="pre">ErrorHTTPException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.middleware.html">Middleware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.middleware.html#module-back_chat.middleware">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.__jump_paths__"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.__jump_paths__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.__auth__"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.__auth__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.decode_token"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.decode_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.dispatch"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.dispatch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.get_header_token"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.get_header_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.get_user_config"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.get_user_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.is_auth"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.is_auth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.AuthMiddleware.unauthorised"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.unauthorised()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.WebSocketAuthMiddleware"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.WebSocketAuthMiddleware.__auth__"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.__auth__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.WebSocketAuthMiddleware.decode_token"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.decode_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.WebSocketAuthMiddleware.is_auth"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.is_auth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.WebSocketAuthMiddleware.unauthorised"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.unauthorised()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.middleware.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.middleware.html#module-back_chat.middleware.auth">Auth module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.__jump_paths__"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.__jump_paths__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.__auth__"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.__auth__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.decode_token"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.decode_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.dispatch"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.dispatch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.get_header_token"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.get_header_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.get_user_config"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.get_user_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.is_auth"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.is_auth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth.AuthMiddleware.unauthorised"><code class="docutils literal notranslate"><span class="pre">AuthMiddleware.unauthorised()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.middleware.html#module-back_chat.middleware.auth_websocket">Auth websocket module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth_websocket.WebSocketAuthMiddleware"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth_websocket.WebSocketAuthMiddleware.__auth__"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.__auth__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth_websocket.WebSocketAuthMiddleware.decode_token"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.decode_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth_websocket.WebSocketAuthMiddleware.is_auth"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.is_auth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.middleware.html#back_chat.middleware.auth_websocket.WebSocketAuthMiddleware.unauthorised"><code class="docutils literal notranslate"><span class="pre">WebSocketAuthMiddleware.unauthorised()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.models.html#module-back_chat.models">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser"><code class="docutils literal notranslate"><span class="pre">ApiUser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">ApiUser.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.city"><code class="docutils literal notranslate"><span class="pre">ApiUser.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.id"><code class="docutils literal notranslate"><span class="pre">ApiUser.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.name"><code class="docutils literal notranslate"><span class="pre">ApiUser.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.postal_code"><code class="docutils literal notranslate"><span class="pre">ApiUser.postal_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ApiUser.uid"><code class="docutils literal notranslate"><span class="pre">ApiUser.uid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Message.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.content"><code class="docutils literal notranslate"><span class="pre">Message.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.id"><code class="docutils literal notranslate"><span class="pre">Message.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.timestamp"><code class="docutils literal notranslate"><span class="pre">Message.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.uid"><code class="docutils literal notranslate"><span class="pre">Message.uid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.Message.user_id"><code class="docutils literal notranslate"><span class="pre">Message.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema"><code class="docutils literal notranslate"><span class="pre">MessageSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.Config"><code class="docutils literal notranslate"><span class="pre">MessageSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.connection_msg"><code class="docutils literal notranslate"><span class="pre">MessageSchema.connection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.content"><code class="docutils literal notranslate"><span class="pre">MessageSchema.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.disconnection_msg"><code class="docutils literal notranslate"><span class="pre">MessageSchema.disconnection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.isMine"><code class="docutils literal notranslate"><span class="pre">MessageSchema.isMine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.model_config"><code class="docutils literal notranslate"><span class="pre">MessageSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.mtype"><code class="docutils literal notranslate"><span class="pre">MessageSchema.mtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.timestamp"><code class="docutils literal notranslate"><span class="pre">MessageSchema.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.to_json"><code class="docutils literal notranslate"><span class="pre">MessageSchema.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.user_id"><code class="docutils literal notranslate"><span class="pre">MessageSchema.user_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.MessageSchema.validate_mode"><code class="docutils literal notranslate"><span class="pre">MessageSchema.validate_mode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema"><code class="docutils literal notranslate"><span class="pre">NotificationSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.Config"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.connection_msg"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.connection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.content"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.disconnection_msg"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.disconnection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.model_config"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.timestamp"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.to_json"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.type"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.NotificationSchema.validate_mode"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.validate_mode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.Config"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.city"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.id"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.model_config"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.name"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.ShowUserSchema.postal_code"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.postal_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf"><code class="docutils literal notranslate"><span class="pre">UserConf</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">UserConf.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.id"><code class="docutils literal notranslate"><span class="pre">UserConf.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.json"><code class="docutils literal notranslate"><span class="pre">UserConf.json</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.last_update"><code class="docutils literal notranslate"><span class="pre">UserConf.last_update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.uid"><code class="docutils literal notranslate"><span class="pre">UserConf.uid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.user_id"><code class="docutils literal notranslate"><span class="pre">UserConf.user_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConf.user_name"><code class="docutils literal notranslate"><span class="pre">UserConf.user_name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection"><code class="docutils literal notranslate"><span class="pre">UserConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection.Config"><code class="docutils literal notranslate"><span class="pre">UserConnection.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection.lastConnection"><code class="docutils literal notranslate"><span class="pre">UserConnection.lastConnection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection.model_config"><code class="docutils literal notranslate"><span class="pre">UserConnection.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection.name"><code class="docutils literal notranslate"><span class="pre">UserConnection.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserConnection.status"><code class="docutils literal notranslate"><span class="pre">UserConnection.status</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema"><code class="docutils literal notranslate"><span class="pre">UserSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema.Config"><code class="docutils literal notranslate"><span class="pre">UserSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema.city"><code class="docutils literal notranslate"><span class="pre">UserSchema.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema.model_config"><code class="docutils literal notranslate"><span class="pre">UserSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema.name"><code class="docutils literal notranslate"><span class="pre">UserSchema.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.UserSchema.postal_code"><code class="docutils literal notranslate"><span class="pre">UserSchema.postal_code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.models.html#module-back_chat.models.orm">Orm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser"><code class="docutils literal notranslate"><span class="pre">ApiUser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">ApiUser.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.city"><code class="docutils literal notranslate"><span class="pre">ApiUser.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.id"><code class="docutils literal notranslate"><span class="pre">ApiUser.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.name"><code class="docutils literal notranslate"><span class="pre">ApiUser.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.postal_code"><code class="docutils literal notranslate"><span class="pre">ApiUser.postal_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.ApiUser.uid"><code class="docutils literal notranslate"><span class="pre">ApiUser.uid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Message.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.content"><code class="docutils literal notranslate"><span class="pre">Message.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.id"><code class="docutils literal notranslate"><span class="pre">Message.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.timestamp"><code class="docutils literal notranslate"><span class="pre">Message.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.uid"><code class="docutils literal notranslate"><span class="pre">Message.uid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.Message.user_id"><code class="docutils literal notranslate"><span class="pre">Message.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf"><code class="docutils literal notranslate"><span class="pre">UserConf</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">UserConf.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.id"><code class="docutils literal notranslate"><span class="pre">UserConf.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.json"><code class="docutils literal notranslate"><span class="pre">UserConf.json</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.last_update"><code class="docutils literal notranslate"><span class="pre">UserConf.last_update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.uid"><code class="docutils literal notranslate"><span class="pre">UserConf.uid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.user_id"><code class="docutils literal notranslate"><span class="pre">UserConf.user_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.orm.UserConf.user_name"><code class="docutils literal notranslate"><span class="pre">UserConf.user_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.models.html#module-back_chat.models.schemas">Schemas module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema"><code class="docutils literal notranslate"><span class="pre">MessageSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.Config"><code class="docutils literal notranslate"><span class="pre">MessageSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.connection_msg"><code class="docutils literal notranslate"><span class="pre">MessageSchema.connection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.content"><code class="docutils literal notranslate"><span class="pre">MessageSchema.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.disconnection_msg"><code class="docutils literal notranslate"><span class="pre">MessageSchema.disconnection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.isMine"><code class="docutils literal notranslate"><span class="pre">MessageSchema.isMine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.model_config"><code class="docutils literal notranslate"><span class="pre">MessageSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.mtype"><code class="docutils literal notranslate"><span class="pre">MessageSchema.mtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.timestamp"><code class="docutils literal notranslate"><span class="pre">MessageSchema.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.to_json"><code class="docutils literal notranslate"><span class="pre">MessageSchema.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.user_id"><code class="docutils literal notranslate"><span class="pre">MessageSchema.user_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.MessageSchema.validate_mode"><code class="docutils literal notranslate"><span class="pre">MessageSchema.validate_mode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema"><code class="docutils literal notranslate"><span class="pre">NotificationSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.Config"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.connection_msg"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.connection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.content"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.content</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.disconnection_msg"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.disconnection_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.model_config"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.timestamp"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.timestamp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.to_json"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.to_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.type"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.NotificationSchema.validate_mode"><code class="docutils literal notranslate"><span class="pre">NotificationSchema.validate_mode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.Config"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.city"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.id"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.model_config"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.name"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.ShowUserSchema.postal_code"><code class="docutils literal notranslate"><span class="pre">ShowUserSchema.postal_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection"><code class="docutils literal notranslate"><span class="pre">UserConnection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection.Config"><code class="docutils literal notranslate"><span class="pre">UserConnection.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection.lastConnection"><code class="docutils literal notranslate"><span class="pre">UserConnection.lastConnection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection.model_config"><code class="docutils literal notranslate"><span class="pre">UserConnection.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection.name"><code class="docutils literal notranslate"><span class="pre">UserConnection.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserConnection.status"><code class="docutils literal notranslate"><span class="pre">UserConnection.status</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema"><code class="docutils literal notranslate"><span class="pre">UserSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema.Config"><code class="docutils literal notranslate"><span class="pre">UserSchema.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema.city"><code class="docutils literal notranslate"><span class="pre">UserSchema.city</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema.model_config"><code class="docutils literal notranslate"><span class="pre">UserSchema.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema.name"><code class="docutils literal notranslate"><span class="pre">UserSchema.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.models.html#back_chat.models.schemas.UserSchema.postal_code"><code class="docutils literal notranslate"><span class="pre">UserSchema.postal_code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.routes.html">Routes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.routes.html#module-back_chat.routes">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.routes.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.routes.html#module-back_chat.routes.api_routes">Api_routes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.api_routes.close_db"><code class="docutils literal notranslate"><span class="pre">close_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.api_routes.health"><code class="docutils literal notranslate"><span class="pre">health()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.routes.html#module-back_chat.routes.streaming_routes">Streaming_routes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.streaming_routes.get_connected_users"><code class="docutils literal notranslate"><span class="pre">get_connected_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.streaming_routes.websocket_endpoint"><code class="docutils literal notranslate"><span class="pre">websocket_endpoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.routes.html#module-back_chat.routes.v1_routes">V1_routes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.adding_user"><code class="docutils literal notranslate"><span class="pre">adding_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.delete_messages"><code class="docutils literal notranslate"><span class="pre">delete_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.get_connected_users"><code class="docutils literal notranslate"><span class="pre">get_connected_users()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.get_messages"><code class="docutils literal notranslate"><span class="pre">get_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.get_user_conf"><code class="docutils literal notranslate"><span class="pre">get_user_conf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.updating_user"><code class="docutils literal notranslate"><span class="pre">updating_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.upload_files"><code class="docutils literal notranslate"><span class="pre">upload_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.routes.html#back_chat.routes.v1_routes.user_listing"><code class="docutils literal notranslate"><span class="pre">user_listing()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.services.html">Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.services.html#module-back_chat.services">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager.broadcast"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager.connect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager.disconnect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.disconnect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager.get_connected_users"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.get_connected_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.ConnectionManager.send_personal_message"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.send_personal_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager.connect"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager.consume_messages"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.consume_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager.consume_messages_from_exchange"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.consume_messages_from_exchange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager.publish_message"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.publish_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.RabbitMQManager.publish_message_to_exchange"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.publish_message_to_exchange()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.services.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.services.html#module-back_chat.services.connection_manager">Connection_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager.broadcast"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager.connect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager.disconnect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.disconnect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager.get_connected_users"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.get_connected_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.connection_manager.ConnectionManager.send_personal_message"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.send_personal_message()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.services.html#module-back_chat.services.rabbitmq_manager">Rabbitmq_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager.connect"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager.consume_messages"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.consume_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager.consume_messages_from_exchange"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.consume_messages_from_exchange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager.publish_message"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.publish_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.services.html#back_chat.services.rabbitmq_manager.RabbitMQManager.publish_message_to_exchange"><code class="docutils literal notranslate"><span class="pre">RabbitMQManager.publish_message_to_exchange()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.utils.html#module-back_chat.utils">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.utils.html#module-back_chat.utils.functions">Functions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.functions.add_user"><code class="docutils literal notranslate"><span class="pre">add_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.functions.save_file"><code class="docutils literal notranslate"><span class="pre">save_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.functions.update_user"><code class="docutils literal notranslate"><span class="pre">update_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.utils.html#module-back_chat.utils.logger_api">Logger_api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.logger_api.ColoredFormatter"><code class="docutils literal notranslate"><span class="pre">ColoredFormatter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.logger_api.ColoredFormatter.format"><code class="docutils literal notranslate"><span class="pre">ColoredFormatter.format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="back_chat.utils.html#back_chat.utils.logger_api.LoggerApi"><code class="docutils literal notranslate"><span class="pre">LoggerApi</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="back_chat.define_api.html">Define  api</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="back_chat.define_api.html#back_chat.define_api.startup_event"><code class="docutils literal notranslate"><span class="pre">startup_event()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Backend Chat documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="back_chat.descriptors.html" class="btn btn-neutral float-right" title="Descriptors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, agrubio.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
