@@ -8,6 +8,7 @@ settings across the backend.
 
 import configparser
 import os
+import json
 
 from keycloak import KeycloakOpenID
 from peewee import SqliteDatabase
@@ -19,15 +20,20 @@ __version__ = "1.1.4"
 
 LOGGER = LoggerApi("back_chat")
 
-conf_file = os.getenv('CONF_FILE', './conf/config.cfg')
-
+conf_content = os.getenv("CONF_FILE_CONTENT")
 config = configparser.ConfigParser()
-config.read(conf_file)
+
+if conf_content:
+    data = json.loads(conf_content)
+    config.read_dict(data)
+else:
+    conf_file = os.getenv("CONF_FILE", "./conf/config.cfg")
+    config.read(conf_file)
 
 API_IP = config.get('conf', "api_ip", fallback='0.0.0.0')
 API_PORT = int(config.get('conf', "api_port", fallback='8000'))
 
-DATABASE_NAME = config.get('conf', "DATABASE_NAME", fallback="my_database.db")
+DATABASE_NAME = config.get('conf', "DATABASE_NAME", fallback="/tmp/my_database.db")
 
 SAVE_FOLDER = config.get('conf', 'SAVE_FOLDER', fallback='./save')
 MINUTES_REFRESH_CONF = config.getint('conf', "minutes_refresh_conf",
