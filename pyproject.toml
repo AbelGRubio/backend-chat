@@ -1,35 +1,182 @@
-[tool.semantic_release.branches.main]
-match = "(main|master)"
-prerelease_token = "rc"
-prerelease = false
+[project]
+name = "Backend-chat"
+version = "1.1.5"
+description = "Add your description here"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.14"
+dependencies = [
+    "aio_pika==9.5.5",
+    "fastapi==0.116.1",
+    "python-keycloak==5.7.0",
+    "python-multipart==0.0.20",
+    "peewee==3.18.2",
+    "uvicorn==0.35.0",
+    "colorama==0.4.6",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
-[semantic_release.branches.main]
-match = "(main|master)"
-prerelease_token = "rc"
-prerelease = false
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.0",
+    "python-semantic-release>=10.5.2",
+    "nodejs>=0.1.1", # required for pyright
+    "pyright>=1.1.400",
+]
+
+# Pyright configuration (static type checker)
+[tool.pyright]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.git",
+    "**/.hg",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+    "**/.tox",
+    "**/.venv",
+    "**/build",
+    "**/dist",
+    "**/docs/_build",
+    "**/notebooks_extra",
+]
+typeCheckingMode = "standard" # "standard" balances strictness and practicality
+
+
+# Ruff configuration (linter and formatter)
+[tool.ruff]
+target-version = "py314"
+line-length = 79
+fix = true
+extend-exclude = [".venv", "build", "dist", "notebooks_extra"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+select = [
+    "A",   # flake8-builtins
+    "ANN", # flake8-annotations
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "C90", # mccabe
+    "D",   # pydocstyle
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "PGH", # pygrep-hooks
+    "RUF", # ruff-specific rules
+    "S",   # flake8-bandit
+    "SIM", # flake8-simplify
+    "T10", # flake8-debugger
+    "T20", # flake8-print
+    "UP",  # pyupgrade
+    "W",   # pycodestyle warnings
+    "YTT", # flake8-2020
+]
+ignore = [
+    "B007",    # Unused loop variable
+    "B008",    # Function call in argument defaults
+    "C901",    # Function too complex
+    "D105",    # Missing docstring in magic method
+    "D203",    # Blank line before class docstring
+    "D205",    # Blank line between summary and description
+    "D212",    # Multi-line docstring summary
+    "D415",    # First line punctuation
+    "ANN401",  # Dynamically typed expressions
+    "FBT001",  # Boolean flag in function
+    "FBT002",  # Default Boolean flag
+    "PLR0913", # Too many arguments
+    "G004",    # f-string in log
+    "S101",    # Use of assert detected
+    "T201",    # `print` found
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/notebooks_extra/**" = ["ALL"]
+"**.ipynb" = ["E501", "D100", "D103", "D101", "E402", "I002", "T201"]
+"**/__init__.py" = ["D104", "F401"]
+"tests/**" = ["S101", "D103", "D100", "D104", "SLF001", "B018"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.deptry]
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+markers = ["slow: marks tests as slow (deselect with '-m \"not slow\"')"]
+addopts = [
+    "--cov=src",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-fail-under=0", # Tune this value to your needs
+    "--maxfail=2 --disable-warnings",
+    "-ra",
+    "-q",
+]
+testpaths = ["tests"]
+python_files = "test_*.py tests_*.py *_test.py"
+python_classes = "*Test Test* Describe*"
+python_functions = "test_* it_* should_* scenario_*"
+
+# Coverage configuration
+[tool.coverage.report]
+skip_empty = true
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
 
 [tool.semantic_release]
 commit_message="v{version}"
 branch="master"
+upload="twine upload dist/*"
 upload_to_pypi = false
 upload_to_repository = true
 tag_commit = "true"
 changelog_file="CHANGELOG.md"
-version_variables = ["src/back_chat/configuration.py:__version__"]
+build_command = "uv build"
+version_variables = ["src/back_chat/configuration.py:__version__", "pyproject.toml:version"]
 
 
 [tool.semantic_release.publish]
 dist_glob_patterns = ["dist/*"]
 upload="twine upload dist/*"
-upload_to_vcs_release = false
-upload_to_pypi = false
+upload_to_vcs_release = true
+upload_to_pypi = true
 build_command = "python setup.py sdist; python setup.py bdist_wheel"
 
 [tool.flake8]
-max-line-length = 88
+max-line-length = 79
 ignore = ["E203", "W503"]
 exclude = [".venv", "./docs"]
 
-[tool.pytest.ini_options]
-addopts = "--maxfail=2 --disable-warnings"
-testpaths = ["test"]
+[tool.black]
+line-length = 79
+
+[tool.isort]
+profile = "black"
+line_length = 79
