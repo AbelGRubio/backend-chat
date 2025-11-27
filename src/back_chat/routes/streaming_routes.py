@@ -28,7 +28,7 @@ websocket_auth = WebSocketAuthMiddleware()
 
 
 @ws_router.websocket("/messages")
-async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
+async def websocket_messages(websocket: WebSocket, token: str = Query(...)):
     """
     WebSocket endpoint for real-time chat messaging.
 
@@ -40,7 +40,7 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     :param token: Authentication token passed as a query parameter.
     """
     client_id = websocket_auth.is_auth(token)
-    if client_id == "":
+    if not client_id:
         return websocket_auth.unauthorised(websocket)
 
     client_id = client_id["sub"][:9] + f"{uuid.uuid4().hex[:4]}"
@@ -55,7 +55,7 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
             data = await websocket.receive_text()
             message_data = MessageSchema.parse_raw(data)
 
-            if message_data.mtype == MessageType.MESSAGE.value:
+            if message_data.mtype == str(MessageType.MESSAGE):
                 message_data.user_id = (
                     message_data.user_id
                     if message_data.user_id != "null"
@@ -84,7 +84,9 @@ async def get_connected_users():
 
 
 @ws_router.websocket("/notifications")
-async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
+async def websocket_notifications(
+    websocket: WebSocket, token: str = Query(...)
+):
     """
     WebSocket endpoint for receiving real-time notifications.
 
@@ -96,11 +98,14 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     :param token: Authentication token passed as a query parameter.
     """
     client_id = websocket_auth.is_auth(token)
-    if client_id == "":
+    if not client_id:
+        return websocket_auth.unauthorised(websocket)
+
+    if not websocket.client:
         return websocket_auth.unauthorised(websocket)
 
     ipp_ = websocket.client.host + str(websocket.client.port)
-    name_connection = client_id + ipp_
+    name_connection = client_id["client_id"] + ipp_
     await MANAGER.connect(name_connection, websocket)
 
     try:

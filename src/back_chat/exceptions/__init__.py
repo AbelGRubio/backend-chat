@@ -7,6 +7,6 @@ from .error_response import BadRequest, ErrorHTTPException
 
 __all__ = [ErrorHTTPException.__name__, BadRequest.__name__]
 
-__aux__ = [globals().get(n)() for n in __all__]
+__aux__ = [globals().get(n)() for n in __all__]  # type: ignore[misc]
 
 all_errors = {a.status_code: dict(a) for a in __aux__}

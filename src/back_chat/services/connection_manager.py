@@ -19,7 +19,7 @@ class ConnectionManager:
         connections.
         The dictionary maps client IDs to their respective WebSocket instances.
         """
-        self.active_connections: Dict[str, WebSocket] = {}
+        self.active_connections: Dict[str, WebSocket] = {}  # type: ignore
 
     async def connect(self, client_id: str, websocket: WebSocket):
         """

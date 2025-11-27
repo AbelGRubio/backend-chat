@@ -111,11 +111,13 @@ def get_messages(request: Request) -> List[MessageSchema]:
     :return: List of MessageSchema objects sorted oldest to newest.
     """
     config = AuthMiddleware(None).get_user_config(request)
-    messages = Message.select().order_by(Message.id.desc()).limit(10)
-    listing_ = [MessageSchema.from_orm(msg) for msg in messages[::-1]]
-    for m_ in listing_:
-        if m_.user_id == config.get("preferred_username", ""):
-            m_.isMine = True
+    listing_ = []
+    if config:
+        messages = Message.select().order_by(Message.uid.desc()).limit(10)
+        listing_ = [MessageSchema.from_orm(msg) for msg in messages[::-1]]
+        for m_ in listing_:
+            if m_.user_id == config.get("preferred_username", ""):
+                m_.isMine = True
     return listing_
 
 
@@ -128,7 +130,7 @@ def updating_user(user_id: str, user_update: UserSchema):
     :param user_update: Updated user data.
     :return: Updated user object or 404 if not found.
     """
-    user_ = ApiUser.get_or_none(ApiUser.id == user_id)
+    user_ = ApiUser.get_or_none(ApiUser.uid == user_id)
     if not user_:
         return JSONResponse(status_code=404, content="User not found")
 
@@ -144,7 +146,7 @@ def delete_user(user_id: int):
     :param user_id: ID of the user to delete.
     :return: Success message or 404 if user not found.
     """
-    user_ = ApiUser.get_or_none(ApiUser.id == user_id)
+    user_ = ApiUser.get_or_none(ApiUser.uid == user_id)
     if not user_:
         return JSONResponse(status_code=404, content="User not found")
 

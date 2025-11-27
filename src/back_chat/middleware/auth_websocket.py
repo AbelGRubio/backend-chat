@@ -45,10 +45,12 @@ class WebSocketAuthMiddleware:
         token is invalid.
         """
         token_ = token.replace("Bearer ", "")
-        payload = KEYCLOAK_OPENID.decode_token(token_)
+        payload = None
+        if KEYCLOAK_OPENID:
+            payload = KEYCLOAK_OPENID.decode_token(token_)
         return payload
 
-    def is_auth(self, token: str) -> str:
+    def is_auth(self, token: str) -> dict | None:
         """
         Verifies the authenticity of the JWT token.
 
@@ -64,4 +66,4 @@ class WebSocketAuthMiddleware:
             return decode_token
         except Exception as e:
             print(f"Authentication failed: {e}")
-            return ""
+            return None

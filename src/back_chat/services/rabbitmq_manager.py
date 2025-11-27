@@ -42,7 +42,7 @@ class RabbitMQManager:
         for attempt in range(self.max_retries):
             try:
                 self.connection = await connect(self.rabbitmq_url)
-                self.channel = await self.connection.channel()
+                self.channel = await self.connection.channel()  # type: ignore
                 return True
             except AMQPConnectionError as e:
                 if self.logger:
@@ -67,7 +67,7 @@ class RabbitMQManager:
                 return
 
         try:
-            await self.channel.default_exchange.publish(
+            await self.channel.default_exchange.publish(  # type: ignore
                 Message(body=message.encode()),
                 routing_key=queue_name,
             )
@@ -98,7 +98,7 @@ class RabbitMQManager:
                 return
 
         try:
-            exchange = await self.channel.declare_exchange(
+            exchange = await self.channel.declare_exchange(  # type: ignore
                 exchange_name, type="fanout"
             )
             await exchange.publish(
@@ -131,10 +131,10 @@ class RabbitMQManager:
                 return
 
         try:
-            self.queue = await self.channel.declare_queue(
+            self.queue = await self.channel.declare_queue(  # type: ignore
                 queue_name, durable=True
             )
-            async for message in self.queue:
+            async for message in self.queue:  # type: ignore
                 async with message.process():
                     if self.logger:
                         self.logger.debug(
@@ -164,12 +164,14 @@ class RabbitMQManager:
                 return
 
         try:
-            exchange = await self.channel.declare_exchange(
+            exchange = await self.channel.declare_exchange(  # type: ignore
                 exchange_name, type="fanout"
             )
-            queue = await self.channel.declare_queue("", exclusive=True)
+            queue = await self.channel.declare_queue(  # type: ignore
+                "", exclusive=True
+            )
             await queue.bind(exchange)
-            async for message in queue:
+            async for message in queue:  # type: ignore
                 async with message.process():
                     await self.manager.broadcast(message.body.decode())
         except Exception as e:

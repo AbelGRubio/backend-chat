@@ -29,7 +29,7 @@ class ErrorHTTPException(HTTPException):
 
 
 class BadRequest(ErrorHTTPException):
-    def __init__(self, detail: str = None, code: int = None):
+    def __init__(self, detail: str | None = None, code: int | None = None):
         if not detail:
             detail = "Error bad request"
         if not code:

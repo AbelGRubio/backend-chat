@@ -7,14 +7,14 @@ class MessageType(Enum):
     Each member represents a distinct category or kind of message.
     """
 
-    MESSAGE: str = "message"
-    CONNECT: str = "connect"
-    DISCONNECT: str = "disconnect"
-    NOTICE: str = "notice"
-    WARNING: str = "warning"
-    CONNECTION: str = "connection"
-    ALARM: str = "alarm"
-    CONFIGURATION: str = "configuration"
+    MESSAGE: str = "message"  # type: ignore[misc]
+    CONNECT: str = "connect"  # type: ignore[misc]
+    DISCONNECT: str = "disconnect"  # type: ignore[misc]
+    NOTICE: str = "notice"  # type: ignore[misc]
+    WARNING: str = "warning"  # type: ignore[misc]
+    CONNECTION: str = "connection"  # type: ignore[misc]
+    ALARM: str = "alarm"  # type: ignore[misc]
+    CONFIGURATION: str = "configuration"  # type: ignore[misc]
 
 
 class MessageMode:

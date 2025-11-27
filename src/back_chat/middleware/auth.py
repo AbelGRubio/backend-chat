@@ -62,7 +62,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
         require auth.
 
         :param request: The incoming HTTP request.
-        :return: True if the path should bypass authentication, False otherwise.
+        :return: True if the path should bypass authentication,
+        False otherwise.
         """
         return request.url.path in self.__jump_paths__
 
@@ -74,7 +75,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         :return: Decoded token payload (usually a dict).
         """
         token_ = token.replace("Bearer ", "")
-        payload = KEYCLOAK_OPENID.decode_token(token_)
+        payload = None
+        if KEYCLOAK_OPENID:
+            payload = KEYCLOAK_OPENID.decode_token(token_)
         return payload
 
     def get_header_token(self, request: Request) -> str:

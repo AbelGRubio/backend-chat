@@ -11,16 +11,16 @@ import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .configuration import (
+from back_chat.configuration import (
     CORS_ORIGINS,
     DATABASE,
     LOGGER,
     RABBITMQ_MANAGER,
     __version__,
 )
-from .middleware.auth import AuthMiddleware
-from .models import ApiUser, Message, UserConf
-from .routes import api_router, v1_router, ws_router
+from back_chat.middleware.auth import AuthMiddleware
+from back_chat.models import ApiUser, Message, UserConf
+from back_chat.routes import api_router, v1_router, ws_router
 
 APP = FastAPI(
     title="REST API WITH EXAMPLES",
@@ -43,7 +43,7 @@ APP.include_router(
 )
 
 
-# APP.add_middleware(AuthMiddleware)
+APP.add_middleware(AuthMiddleware)
 
 APP.add_middleware(
     CORSMiddleware,

@@ -17,7 +17,7 @@ class UserSchema(BaseModel):
 
 
 class ShowUserSchema(BaseModel):
-    id: str = 0
+    id: str = "0"
     name: str = ""
     postal_code: str = ""
     city: str = "-"
@@ -30,7 +30,7 @@ class ShowUserSchema(BaseModel):
 class UserConnection(BaseModel):
     name: str
     status: str = "online"
-    lastConnection: datetime.datetime or str = datetime.datetime.now()
+    lastConnection: datetime.datetime = datetime.datetime.now()
 
     class Config:
         from_attributes = True
@@ -39,8 +39,8 @@ class UserConnection(BaseModel):
 class MessageSchema(BaseModel):
     user_id: str
     content: str = ""
-    timestamp: datetime.datetime or str = datetime.datetime.now()
-    mtype: str = MessageType.MESSAGE.value
+    timestamp: datetime.datetime = datetime.datetime.now()
+    mtype: str = str(MessageType.MESSAGE)
     isMine: bool = False
 
     class Config:
@@ -56,11 +56,11 @@ class MessageSchema(BaseModel):
         return v
 
     def connection_msg(self):
-        self.mtype = MessageType.CONNECT.value
+        self.mtype = str(MessageType.CONNECT)
         self.content = "join the chat"
 
     def disconnection_msg(self):
-        self.mtype = MessageType.DISCONNECT.value
+        self.mtype = str(MessageType.DISCONNECT)
         self.content = "left the chat"
 
     def to_json(self):
@@ -73,8 +73,8 @@ class MessageSchema(BaseModel):
 
 class NotificationSchema(BaseModel):
     content: dict = {}
-    timestamp: datetime.datetime or str = datetime.datetime.now()
-    type: str = MessageType.MESSAGE.value
+    timestamp: datetime.datetime = datetime.datetime.now()
+    type: str = str(MessageType.MESSAGE)
 
     class Config:
         __type_descriptor__ = MessageMode()
@@ -88,12 +88,12 @@ class NotificationSchema(BaseModel):
         return v
 
     def connection_msg(self):
-        self.mtype = MessageType.CONNECT.value
-        self.content = "join the chat"
+        self.mtype = str(MessageType.CONNECT)
+        self.content = {"msg": "join the chat"}
 
     def disconnection_msg(self):
-        self.mtype = MessageType.DISCONNECT.value
-        self.content = "left the chat"
+        self.mtype = str(MessageType.DISCONNECT)
+        self.content = {"msg": "left the chat"}
 
     def to_json(self):
         if self.user_id.isdigit():

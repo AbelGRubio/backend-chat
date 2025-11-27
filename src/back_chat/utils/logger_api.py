@@ -2,11 +2,12 @@
 Custom logging module with colored console output and rotating file logging.
 
 This module defines a custom logger (`LoggerApi`) that logs messages to both
-the console (with colored output for different log levels) and to daily rotating
-log files. It is useful for debugging and monitoring asynchronous applications.
+the console (with colored output for different log levels) and to daily
+rotating log files. It is useful for debugging and monitoring asynchronous
+applications.
 
 Classes:
-- ColoredFormatter: Applies color formatting to log messages based on log level.
+- ColoredFormatter: Applies color formatting to log messages based on log level
 - LoggerApi: Custom logger class with console and file handlers.
 """
 
@@ -52,7 +53,7 @@ class LoggerApi(logging.Logger):
     :param level: Logging level (default: DEBUG).
     """
 
-    def __init__(self, name: str = None, level: int = logging.DEBUG):
+    def __init__(self, name: str | None = None, level: int = logging.DEBUG):
         if not name:
             name = "api"
         super().__init__(name, level)
