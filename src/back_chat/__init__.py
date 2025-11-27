@@ -7,12 +7,14 @@ with authentication systems. The architecture supports failover and horizontal
 scalability to ensure consistent performance and uptime.
 """
 
-
-from .configuration import __version__, API_IP, API_PORT, LOGGER, LOG_CONFIG
+from .configuration import API_IP, API_PORT, LOG_CONFIG, LOGGER, __version__
 from .define_api import APP
 
 __all__ = [
     APP.__module__,
-    __version__, str(LOG_CONFIG.__str__),
-    API_IP, API_PORT.__str__(), LOGGER.__module__
+    __version__,
+    str(LOG_CONFIG.__str__),
+    API_IP,
+    API_PORT.__str__(),
+    LOGGER.__module__,
 ]

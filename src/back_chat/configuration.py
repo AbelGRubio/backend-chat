@@ -7,8 +7,8 @@ settings across the backend.
 """
 
 import configparser
-import os
 import json
+import os
 
 from keycloak import KeycloakOpenID
 from peewee import SqliteDatabase
@@ -30,22 +30,25 @@ else:
     conf_file = os.getenv("CONF_FILE", "./conf/config.cfg")
     config.read(conf_file)
 
-API_IP = config.get('conf', "api_ip", fallback='0.0.0.0')
-API_PORT = int(config.get('conf', "api_port", fallback='8000'))
+API_IP = config.get("conf", "api_ip", fallback="0.0.0.0")
+API_PORT = int(config.get("conf", "api_port", fallback="8000"))
 
-DATABASE_NAME = config.get('conf', "DATABASE_NAME", fallback="/tmp/my_database.db")
+DATABASE_NAME = config.get(
+    "conf", "DATABASE_NAME", fallback="/tmp/my_database.db"
+)
 
-SAVE_FOLDER = config.get('conf', 'SAVE_FOLDER', fallback='./save')
-MINUTES_REFRESH_CONF = config.getint('conf', "minutes_refresh_conf",
-                                     fallback=5)
-cors_ = config.get('conf', "cors_origins", fallback='').split(',')
-CORS_ORIGINS = [c_ for c_ in cors_ if c_ != '']
+SAVE_FOLDER = config.get("conf", "SAVE_FOLDER", fallback="./save")
+MINUTES_REFRESH_CONF = config.getint(
+    "conf", "minutes_refresh_conf", fallback=5
+)
+cors_ = config.get("conf", "cors_origins", fallback="").split(",")
+CORS_ORIGINS = [c_ for c_ in cors_ if c_ != ""]
 
-KEYCLOAK_URL = config.get('keycloak', 'keycloak_url', fallback=None)
+KEYCLOAK_URL = config.get("keycloak", "keycloak_url", fallback=None)
 
-CLIENT_NAME = config.get('keycloak', 'client_name', fallback=None)
-CLIENT_SECRET = os.getenv('CLIENT_SECRET', None)
-REALM = config.get('keycloak', 'realm', fallback=None)
+CLIENT_NAME = config.get("keycloak", "client_name", fallback=None)
+CLIENT_SECRET = os.getenv("CLIENT_SECRET", None)
+REALM = config.get("keycloak", "realm", fallback=None)
 
 KEYCLOAK_OPENID = None
 
@@ -60,14 +63,17 @@ DATABASE = SqliteDatabase(DATABASE_NAME)
 
 MANAGER = ConnectionManager()
 
-RABBITMQ_URL = config.get('rabbitmq', 'rabbitmq_url', fallback='')
-QUEUE_NAME = config.get('rabbitmq', 'queue_name', fallback='qn')
-EXCHANGE_NAME = config.get('rabbitmq', 'exchange_name',
-                           fallback='notifications')
+RABBITMQ_URL = config.get("rabbitmq", "rabbitmq_url", fallback="")
+QUEUE_NAME = config.get("rabbitmq", "queue_name", fallback="qn")
+EXCHANGE_NAME = config.get(
+    "rabbitmq", "exchange_name", fallback="notifications"
+)
 
-user = os.getenv('RABBIT_USER', None)
-password = os.getenv('RABBIT_PSSWRD', None)
-CONNECTION_URL = RABBITMQ_URL.replace("https://", f"amqps://{user}:{password}@")
+user = os.getenv("RABBIT_USER", None)
+password = os.getenv("RABBIT_PSSWRD", None)
+CONNECTION_URL = RABBITMQ_URL.replace(
+    "https://", f"amqps://{user}:{password}@"
+)
 RABBITMQ_MANAGER = RabbitMQManager(CONNECTION_URL, MANAGER, logger=LOGGER)
 
 
@@ -84,7 +90,6 @@ LOG_CONFIG = {
             "format": LOGGER.msg_format,
             "datefmt": LOGGER.datetime_format,
         },
-
     },
     "handlers": {
         "console": {

@@ -2,8 +2,8 @@ import os.path
 
 from fastapi import UploadFile
 
-from ..configuration import LOGGER, SAVE_FOLDER, MANAGER
-from ..models import UserSchema, ApiUser
+from ..configuration import LOGGER, MANAGER, SAVE_FOLDER
+from ..models import ApiUser, UserSchema
 
 
 def add_user(user_: UserSchema) -> str:
@@ -28,7 +28,7 @@ def add_user(user_: UserSchema) -> str:
         new_user = ApiUser.get_or_create(**user_.model_dump())
         message = message.format(new_user.uid, new_user.name)
     else:
-        message = 'The user already exists!'
+        message = "The user already exists!"
 
     return message
 
@@ -46,7 +46,8 @@ def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
     """
 
     user_.update(**user_update.dict()).where(
-        ApiUser.uid == user_.uid).execute()
+        ApiUser.uid == user_.uid
+    ).execute()
 
     user_updated = ApiUser.get(ApiUser.uid == user_.uid)
 
@@ -65,9 +66,7 @@ async def save_file(file: UploadFile):
 
     :param file: The uploaded file to be saved (FastAPI's `UploadFile`).
     """
-    des_ = os.path.join(
-        SAVE_FOLDER,
-        file.filename.replace(' ', '-'))
+    des_ = os.path.join(SAVE_FOLDER, file.filename.replace(" ", "-"))
     LOGGER.debug(f"Saving file: {file.filename}")
     with open(des_, "ab") as f:
         while content := await file.read(1024):

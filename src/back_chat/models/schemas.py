@@ -7,9 +7,9 @@ from ..descriptors import MessageMode, MessageType
 
 
 class UserSchema(BaseModel):
-    name: str = ''
-    postal_code: str = ''
-    city: str = '-'
+    name: str = ""
+    postal_code: str = ""
+    city: str = "-"
 
     class Config:
         orm_mode = True
@@ -18,9 +18,9 @@ class UserSchema(BaseModel):
 
 class ShowUserSchema(BaseModel):
     id: str = 0
-    name: str = ''
-    postal_code: str = ''
-    city: str = '-'
+    name: str = ""
+    postal_code: str = ""
+    city: str = "-"
 
     class Config:
         orm_mode = True
@@ -29,7 +29,7 @@ class ShowUserSchema(BaseModel):
 
 class UserConnection(BaseModel):
     name: str
-    status: str = 'online'
+    status: str = "online"
     lastConnection: datetime.datetime or str = datetime.datetime.now()
 
     class Config:
@@ -38,7 +38,7 @@ class UserConnection(BaseModel):
 
 class MessageSchema(BaseModel):
     user_id: str
-    content: str = ''
+    content: str = ""
     timestamp: datetime.datetime or str = datetime.datetime.now()
     mtype: str = MessageType.MESSAGE.value
     isMine: bool = False
@@ -48,7 +48,7 @@ class MessageSchema(BaseModel):
         orm_mode = True
         from_attributes = True
 
-    @validator('mtype')
+    @validator("mtype")
     def validate_mode(cls, v):
         if isinstance(v, MessageType):
             v = v.value
@@ -65,9 +65,9 @@ class MessageSchema(BaseModel):
 
     def to_json(self):
         if self.user_id.isdigit():
-            self.user_id = f'Client {self.user_id}'
+            self.user_id = f"Client {self.user_id}"
         dict_ = dict(self)
-        dict_['timestamp'] = str(dict_['timestamp'])
+        dict_["timestamp"] = str(dict_["timestamp"])
         return json.dumps(dict_)
 
 
@@ -80,7 +80,7 @@ class NotificationSchema(BaseModel):
         __type_descriptor__ = MessageMode()
         from_attributes = True
 
-    @validator('type')
+    @validator("type")
     def validate_mode(cls, v):
         if isinstance(v, MessageType):
             v = v.value
@@ -97,7 +97,7 @@ class NotificationSchema(BaseModel):
 
     def to_json(self):
         if self.user_id.isdigit():
-            self.user_id = f'Client {self.user_id}'
+            self.user_id = f"Client {self.user_id}"
         dict_ = dict(self)
-        dict_['timestamp'] = str(dict_['timestamp'])
+        dict_["timestamp"] = str(dict_["timestamp"])
         return json.dumps(dict_)

@@ -1,6 +1,9 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
+from starlette.middleware.base import (
+    BaseHTTPMiddleware,
+    RequestResponseEndpoint,
+)
 from starlette.responses import Response
 
 from ..configuration import KEYCLOAK_OPENID
@@ -24,9 +27,14 @@ class AuthMiddleware(BaseHTTPMiddleware):
         __auth__ (str): Header key name for authorization token.
     """
 
-    __jump_paths__ = ['/docs', '/openapi.json', '/redoc',
-                      '/health', '/favicon.ico']
-    __auth__ = 'authorization'
+    __jump_paths__ = [
+        "/docs",
+        "/openapi.json",
+        "/redoc",
+        "/health",
+        "/favicon.ico",
+    ]
+    __auth__ = "authorization"
 
     def __init__(self, *args, **kwargs):
         """
@@ -36,7 +44,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
     @staticmethod
     def unauthorised(
-            code: int = 401, msg: str = 'Unauthorised') -> JSONResponse:
+        code: int = 401, msg: str = "Unauthorised"
+    ) -> JSONResponse:
         """
         Return a JSON response indicating an unauthorized access attempt.
 
@@ -64,7 +73,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         :param token: Raw token string from the authorization header.
         :return: Decoded token payload (usually a dict).
         """
-        token_ = token.replace('Bearer ', '')
+        token_ = token.replace("Bearer ", "")
         payload = KEYCLOAK_OPENID.decode_token(token_)
         return payload
 
@@ -75,7 +84,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         :param request: The incoming HTTP request.
         :return: Authorization header value or empty string if missing.
         """
-        return request.headers.get(self.__auth__, '')
+        return request.headers.get(self.__auth__, "")
 
     def get_user_config(self, request: Request) -> dict | None:
         """

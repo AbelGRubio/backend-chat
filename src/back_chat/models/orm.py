@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from peewee import Model, CharField, IntegerField, TextField, DateTimeField
+from peewee import CharField, DateTimeField, IntegerField, Model, TextField
 
 from ..configuration import DATABASE
 
@@ -40,4 +40,4 @@ class UserConf(Model):
 
     class Meta:
         database = DATABASE
-        table_name = 'user_conf'
+        table_name = "user_conf"

@@ -6,14 +6,15 @@ class MessageType(Enum):
     Enumeration of possible message types used in the application.
     Each member represents a distinct category or kind of message.
     """
-    MESSAGE: str = 'message'
-    CONNECT: str = 'connect'
-    DISCONNECT: str = 'disconnect'
-    NOTICE: str = 'notice'
-    WARNING: str = 'warning'
-    CONNECTION: str = 'connection'
-    ALARM: str = 'alarm'
-    CONFIGURATION: str = 'configuration'
+
+    MESSAGE: str = "message"
+    CONNECT: str = "connect"
+    DISCONNECT: str = "disconnect"
+    NOTICE: str = "notice"
+    WARNING: str = "warning"
+    CONNECTION: str = "connection"
+    ALARM: str = "alarm"
+    CONFIGURATION: str = "configuration"
 
 
 class MessageMode:
@@ -68,8 +69,10 @@ class MessageMode:
         if isinstance(value, MessageType):
             value = value.value  # Convert enum to its string value
         if value not in MessageType:
-            raise ValueError(f"Invalid value: {value}. "
-                             f"Must be in {MessageType.__name__}")
+            raise ValueError(
+                f"Invalid value: {value}. "
+                f"Must be in {MessageType.__name__}"
+            )
         instance.__dict__[self.name] = value
 
     def __set_name__(self, owner, name):

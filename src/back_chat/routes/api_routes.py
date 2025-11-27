@@ -1,8 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from ..configuration import DATABASE
-from ..configuration import __version__
+from ..configuration import DATABASE, __version__
 
 api_router = APIRouter()
 
@@ -19,8 +18,7 @@ def health() -> JSONResponse:
     """
     status_code = 200
     return JSONResponse(
-        content={'version': __version__},
-        status_code=status_code
+        content={"version": __version__}, status_code=status_code
     )
 
 

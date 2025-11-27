@@ -20,4 +20,3 @@ Message module
    :members:
    :show-inheritance:
    :undoc-members:
-

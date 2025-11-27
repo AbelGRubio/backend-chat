@@ -3,7 +3,7 @@ This package defines custom exception classes used to handle domain-specific
 errors across the application.
 """
 
-from .error_response import ErrorHTTPException, BadRequest
+from .error_response import BadRequest, ErrorHTTPException
 
 __all__ = [ErrorHTTPException.__name__, BadRequest.__name__]
 

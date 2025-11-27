@@ -14,24 +14,24 @@ Includes:
 import asyncio
 from typing import List
 
-from fastapi import APIRouter, UploadFile, File, Request
+from fastapi import APIRouter, File, Request, UploadFile
 from fastapi.responses import JSONResponse
 
 from ..configuration import LOGGER, MANAGER
 from ..middleware.auth import AuthMiddleware
-from ..models import Message, ApiUser
+from ..models import ApiUser, Message
 from ..models.schemas import (
-    UserSchema,
-    ShowUserSchema,
     MessageSchema,
-    UserConnection
+    ShowUserSchema,
+    UserConnection,
+    UserSchema,
 )
-from ..utils.functions import add_user, update_user, save_file
+from ..utils.functions import add_user, save_file, update_user
 
 v1_router = APIRouter()
 
 
-@v1_router.post('/user', response_class=JSONResponse)
+@v1_router.post("/user", response_class=JSONResponse)
 def adding_user(user_parameter: UserSchema) -> JSONResponse:
     """
     Add a new user to the database.
@@ -114,7 +114,7 @@ def get_messages(request: Request) -> List[MessageSchema]:
     messages = Message.select().order_by(Message.id.desc()).limit(10)
     listing_ = [MessageSchema.from_orm(msg) for msg in messages[::-1]]
     for m_ in listing_:
-        if m_.user_id == config.get('preferred_username', ''):
+        if m_.user_id == config.get("preferred_username", ""):
             m_.isMine = True
     return listing_
 

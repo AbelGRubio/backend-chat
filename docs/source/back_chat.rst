@@ -31,5 +31,3 @@ Submodules
 
    back_chat.configuration
    back_chat.define_api
-
-

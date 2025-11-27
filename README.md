@@ -108,5 +108,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## ✨ Author
 
-**Abel G. Rubio**  
+**Abel G. Rubio**
 GitHub: [@AbelGRubio](https://github.com/AbelGRubio)

@@ -28,4 +28,3 @@ Logger\_api module
    :members:
    :show-inheritance:
    :undoc-members:
-

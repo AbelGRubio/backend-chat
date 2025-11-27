@@ -15,13 +15,13 @@ Routes:
 
 import uuid
 
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
+from fastapi import APIRouter, Query, WebSocket, WebSocketDisconnect
 
 from ..configuration import MANAGER
 from ..descriptors import MessageType
 from ..middleware.auth_websocket import WebSocketAuthMiddleware
 from ..models import Message
-from ..models.schemas import NotificationSchema, MessageSchema
+from ..models.schemas import MessageSchema, NotificationSchema
 
 ws_router = APIRouter()
 websocket_auth = WebSocketAuthMiddleware()
@@ -40,10 +40,10 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     :param token: Authentication token passed as a query parameter.
     """
     client_id = websocket_auth.is_auth(token)
-    if client_id == '':
+    if client_id == "":
         return websocket_auth.unauthorised(websocket)
 
-    client_id = client_id['sub'][:9] + f"{uuid.uuid4().hex[:4]}"
+    client_id = client_id["sub"][:9] + f"{uuid.uuid4().hex[:4]}"
     await MANAGER.connect(client_id, websocket)
 
     msg_ = MessageSchema(user_id=client_id)
@@ -57,12 +57,12 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
 
             if message_data.mtype == MessageType.MESSAGE.value:
                 message_data.user_id = (
-                    message_data.user_id if message_data.user_id != "null"
+                    message_data.user_id
+                    if message_data.user_id != "null"
                     else client_id
                 )
                 Message.create(
-                    user_id=message_data.user_id,
-                    content=message_data.content
+                    user_id=message_data.user_id, content=message_data.content
                 )
                 await MANAGER.broadcast(message_data.to_json())
     except WebSocketDisconnect:
@@ -96,7 +96,7 @@ async def websocket_endpoint(websocket: WebSocket, token: str = Query(...)):
     :param token: Authentication token passed as a query parameter.
     """
     client_id = websocket_auth.is_auth(token)
-    if client_id == '':
+    if client_id == "":
         return websocket_auth.unauthorised(websocket)
 
     ipp_ = websocket.client.host + str(websocket.client.port)

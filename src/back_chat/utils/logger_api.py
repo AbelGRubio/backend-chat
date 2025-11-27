@@ -35,7 +35,7 @@ class ColoredFormatter(logging.Formatter):
             logging.INFO: Fore.GREEN,
             logging.WARNING: Fore.YELLOW,
             logging.ERROR: Fore.RED,
-            logging.CRITICAL: Fore.MAGENTA + Style.BRIGHT
+            logging.CRITICAL: Fore.MAGENTA + Style.BRIGHT,
         }
 
         level_color = level_colors.get(record.levelno, "")
@@ -54,11 +54,15 @@ class LoggerApi(logging.Logger):
 
     def __init__(self, name: str = None, level: int = logging.DEBUG):
         if not name:
-            name = 'api'
+            name = "api"
         super().__init__(name, level)
-        self._folder_name = '/tmp/.logs' if os.getenv("LOG_TEMP", "True").lower() == "true" else '.logs'
-        self.file_name = f'{self._folder_name}/{self.name}.log'
-        self.msg_format = '%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s'
+        self._folder_name = (
+            "/tmp/.logs"
+            if os.getenv("LOG_TEMP", "True").lower() == "true"
+            else ".logs"
+        )
+        self.file_name = f"{self._folder_name}/{self.name}.log"
+        self.msg_format = "%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s"
         self.datetime_format = "%Y-%m-%d %H:%M:%S"
         self._configure_logger()
         self._create_file_handler()
@@ -84,8 +88,7 @@ class LoggerApi(logging.Logger):
             os.mkdir(self._folder_name)
 
         self.custom_file_handler = TimedRotatingFileHandler(
-            self.file_name,
-            when='midnight', interval=1, backupCount=4
+            self.file_name, when="midnight", interval=1, backupCount=4
         )
         self.custom_file_handler.setLevel(logging.DEBUG)
 

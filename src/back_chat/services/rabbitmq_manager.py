@@ -1,7 +1,7 @@
 import asyncio
 from typing import Optional
 
-from aio_pika import connect, Message, Channel, Queue
+from aio_pika import Channel, Message, Queue, connect
 from aio_pika.exceptions import AMQPConnectionError
 
 
@@ -22,8 +22,9 @@ class RabbitMQManager:
     :param logger: Optional logger for debug and error logging.
     """
 
-    def __init__(self, rabbitmq_url: str, manager, max_retries: int = 3,
-                 logger=None):
+    def __init__(
+        self, rabbitmq_url: str, manager, max_retries: int = 3, logger=None
+    ):
         self.rabbitmq_url = rabbitmq_url
         self.manager = manager
         self.max_retries = max_retries
@@ -72,13 +73,15 @@ class RabbitMQManager:
             )
             if self.logger:
                 self.logger.debug(
-                    f"Message published to {queue_name}: {message}")
+                    f"Message published to {queue_name}: {message}"
+                )
         except Exception as e:
             if self.logger:
                 self.logger.error(f"Failed to publish message: {e}")
 
     async def publish_message_to_exchange(
-            self, exchange_name: str, message: str, routing_key: str = ''):
+        self, exchange_name: str, message: str, routing_key: str = ""
+    ):
         """
         Publish a message to a RabbitMQ exchange.
 
@@ -96,19 +99,21 @@ class RabbitMQManager:
 
         try:
             exchange = await self.channel.declare_exchange(
-                exchange_name, type='fanout')
+                exchange_name, type="fanout"
+            )
             await exchange.publish(
-                Message(body=message.encode()),
-                routing_key=routing_key
+                Message(body=message.encode()), routing_key=routing_key
             )
             if self.logger:
                 self.logger.debug(
                     f"Message published to exchange "
-                    f"{exchange_name}: {message}")
+                    f"{exchange_name}: {message}"
+                )
         except Exception as e:
             if self.logger:
                 self.logger.error(
-                    f"Failed to publish message to exchange: {e}")
+                    f"Failed to publish message to exchange: {e}"
+                )
 
     async def consume_messages(self, queue_name: str):
         """
@@ -127,18 +132,21 @@ class RabbitMQManager:
 
         try:
             self.queue = await self.channel.declare_queue(
-                queue_name, durable=True)
+                queue_name, durable=True
+            )
             async for message in self.queue:
                 async with message.process():
                     if self.logger:
                         self.logger.debug(
-                            f"Received message: {message.body.decode()}")
+                            f"Received message: {message.body.decode()}"
+                        )
                     await self.manager.broadcast(message.body.decode())
         except Exception as e:
             if self.logger:
                 self.logger.error(f"Failed to consume messages: {e}")
             await self.manager.broadcast(
-                "Redundancy service is not available.")
+                "Redundancy service is not available."
+            )
 
     async def consume_messages_from_exchange(self, exchange_name: str):
         """
@@ -157,8 +165,9 @@ class RabbitMQManager:
 
         try:
             exchange = await self.channel.declare_exchange(
-                exchange_name, type='fanout')
-            queue = await self.channel.declare_queue('', exclusive=True)
+                exchange_name, type="fanout"
+            )
+            queue = await self.channel.declare_queue("", exclusive=True)
             await queue.bind(exchange)
             async for message in queue:
                 async with message.process():
@@ -166,6 +175,8 @@ class RabbitMQManager:
         except Exception as e:
             if self.logger:
                 self.logger.error(
-                    f"Failed to consume messages from exchange: {e}")
+                    f"Failed to consume messages from exchange: {e}"
+                )
             await self.manager.broadcast(
-                "Redundancy service is not available.")
+                "Redundancy service is not available."
+            )

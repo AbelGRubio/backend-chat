@@ -11,36 +11,35 @@ import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .configuration import (__version__, DATABASE, CORS_ORIGINS,
-                            RABBITMQ_MANAGER, LOGGER)
+from .configuration import (
+    CORS_ORIGINS,
+    DATABASE,
+    LOGGER,
+    RABBITMQ_MANAGER,
+    __version__,
+)
 from .middleware.auth import AuthMiddleware
-from .models import Message, UserConf, ApiUser
+from .models import ApiUser, Message, UserConf
 from .routes import api_router, v1_router, ws_router
 
 APP = FastAPI(
     title="REST API WITH EXAMPLES",
     summary="REST API WITH EXAMPLES",
-    version=__version__
+    version=__version__,
 )
 
 
 APP.include_router(
-    router=api_router,
-    prefix='/api',
-    tags=["Service 1: API endpoints"]
+    router=api_router, prefix="/api", tags=["Service 1: API endpoints"]
 )
 
 
 APP.include_router(
-    router=v1_router,
-    prefix='/v1',
-    tags=["Service 2: v1 endpoints"]
+    router=v1_router, prefix="/v1", tags=["Service 2: v1 endpoints"]
 )
 
 APP.include_router(
-    router=ws_router,
-    prefix='/ws',
-    tags=["Service 3: web socket"]
+    router=ws_router, prefix="/ws", tags=["Service 3: web socket"]
 )
 
 

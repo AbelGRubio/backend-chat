@@ -28,4 +28,3 @@ Rabbitmq\_manager module
    :members:
    :show-inheritance:
    :undoc-members:
-

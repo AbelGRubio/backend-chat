@@ -16,10 +16,11 @@ class WebSocketAuthMiddleware:
         authorization token.
     """
 
-    __auth__ = 'authorization'
+    __auth__ = "authorization"
 
-    async def unauthorised(self, websocket: WebSocket, code: int = 1008,
-                           msg: str = 'Unauthorised'):
+    async def unauthorised(
+        self, websocket: WebSocket, code: int = 1008, msg: str = "Unauthorised"
+    ):
         """
         Closes the WebSocket connection with a specific close code and reason.
 
@@ -43,7 +44,7 @@ class WebSocketAuthMiddleware:
         :raises: Exceptions raised by KEYCLOAK_OPENID.decode_token if the
         token is invalid.
         """
-        token_ = token.replace('Bearer ', '')
+        token_ = token.replace("Bearer ", "")
         payload = KEYCLOAK_OPENID.decode_token(token_)
         return payload
 
@@ -63,4 +64,4 @@ class WebSocketAuthMiddleware:
             return decode_token
         except Exception as e:
             print(f"Authentication failed: {e}")
-            return ''
+            return ""

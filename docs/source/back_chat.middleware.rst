@@ -27,4 +27,3 @@ Auth websocket module
    :members:
    :show-inheritance:
    :undoc-members:
-
