@@ -27,6 +27,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+
+
 [dependency-groups]
 dev = [
     "pre-commit>=4.5.0",

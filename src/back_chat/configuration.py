@@ -54,9 +54,9 @@ KEYCLOAK_OPENID = None
 
 if None not in [KEYCLOAK_URL, CLIENT_NAME, REALM]:
     KEYCLOAK_OPENID = KeycloakOpenID(
-        server_url=KEYCLOAK_URL or '',
-        client_id=CLIENT_NAME or '',
-        realm_name=REALM or '',
+        server_url=KEYCLOAK_URL or "",
+        client_id=CLIENT_NAME or "",
+        realm_name=REALM or "",
     )
 
 DATABASE = SqliteDatabase(DATABASE_NAME)

@@ -60,6 +60,29 @@ Or with FastAPI and Uvicorn:
 ```bash
 uvicorn src.back_chat:app --host 0.0.0.0 --port 8000
 ```
+---
+
+## Important configuration 
+```ini
+[conf]
+api_ip = localhost
+api_port = 8000
+database_name=chat.db
+save_folder = ./save
+minutes_refresh_conf=1
+cors_origins=http://localhost:3000
+
+[keycloak]
+keycloak_url = <url_keycloak>
+client_name = <client_name>
+realm = <realm>
+
+[rabbitmq]
+rabbitmq_url = <rabbitmq_url>
+queue_name = notifications
+exchange_name = notifications
+
+```
 
 ---
 
