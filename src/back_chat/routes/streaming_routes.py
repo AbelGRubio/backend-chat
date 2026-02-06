@@ -1,5 +1,4 @@
-"""
-WebSocket endpoints for real-time messaging and notifications.
+"""WebSocket endpoints for real-time messaging and notifications.
 
 This module provides WebSocket routes for chat message exchange and
 user connection tracking. Authentication is required for both endpoints
@@ -29,8 +28,7 @@ websocket_auth = WebSocketAuthMiddleware()
 
 @ws_router.websocket("/messages")
 async def websocket_messages(websocket: WebSocket, token: str = Query(...)):
-    """
-    WebSocket endpoint for real-time chat messaging.
+    """WebSocket endpoint for real-time chat messaging.
 
     Clients must authenticate using a token passed as a query parameter.
     Once connected, messages are broadcasted to all users and stored in the
@@ -56,14 +54,8 @@ async def websocket_messages(websocket: WebSocket, token: str = Query(...)):
             message_data = MessageSchema.parse_raw(data)
 
             if message_data.mtype == str(MessageType.MESSAGE):
-                message_data.user_id = (
-                    message_data.user_id
-                    if message_data.user_id != "null"
-                    else client_id
-                )
-                Message.create(
-                    user_id=message_data.user_id, content=message_data.content
-                )
+                message_data.user_id = message_data.user_id if message_data.user_id != "null" else client_id
+                Message.create(user_id=message_data.user_id, content=message_data.content)
                 await MANAGER.broadcast(message_data.to_json())
     except WebSocketDisconnect:
         MANAGER.disconnect(client_id)
@@ -74,8 +66,7 @@ async def websocket_messages(websocket: WebSocket, token: str = Query(...)):
 
 @ws_router.get("/connected_users")
 async def get_connected_users():
-    """
-    Retrieve the list of currently connected WebSocket client IDs.
+    """Retrieve the list of currently connected WebSocket client IDs.
 
     :return: Dictionary containing a list of connected user IDs.
     """
@@ -84,11 +75,8 @@ async def get_connected_users():
 
 
 @ws_router.websocket("/notifications")
-async def websocket_notifications(
-    websocket: WebSocket, token: str = Query(...)
-):
-    """
-    WebSocket endpoint for receiving real-time notifications.
+async def websocket_notifications(websocket: WebSocket, token: str = Query(...)):
+    """WebSocket endpoint for receiving real-time notifications.
 
     Clients must authenticate using a token passed as a query parameter.
     The connection is registered with a combination of client ID and IP:port.

@@ -1,5 +1,4 @@
-"""
-Custom logging module with colored console output and rotating file logging.
+"""Custom logging module with colored console output and rotating file logging.
 
 This module defines a custom logger (`LoggerApi`) that logs messages to both
 the console (with colored output for different log levels) and to daily
@@ -20,13 +19,10 @@ from colorama import Fore, Style
 
 
 class ColoredFormatter(logging.Formatter):
-    """
-    Custom log formatter that adds color to log levels for console output.
-    """
+    """Custom log formatter that adds color to log levels for console output."""
 
     def format(self, record: LogRecord) -> str:
-        """
-        Format the log message with color based on the log level.
+        """Format the log message with color based on the log level.
 
         :param record: The log record to format.
         :return: The color-formatted log message as a string.
@@ -45,8 +41,7 @@ class ColoredFormatter(logging.Formatter):
 
 
 class LoggerApi(logging.Logger):
-    """
-    Custom logger that logs to both console (with color) and rotating log
+    """Custom logger that logs to both console (with color) and rotating log
     files.
 
     :param name: Name of the logger (used as log file name as well).
@@ -57,11 +52,7 @@ class LoggerApi(logging.Logger):
         if not name:
             name = "api"
         super().__init__(name, level)
-        self._folder_name = (
-            "/tmp/.logs"
-            if os.getenv("LOG_TEMP", "True").lower() == "true"
-            else ".logs"
-        )
+        self._folder_name = "/tmp/.logs" if os.getenv("LOG_TEMP", "True").lower() == "true" else ".logs"
         self.file_name = f"{self._folder_name}/{self.name}.log"
         self.msg_format = "%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s"
         self.datetime_format = "%Y-%m-%d %H:%M:%S"
@@ -69,9 +60,7 @@ class LoggerApi(logging.Logger):
         self._create_file_handler()
 
     def _configure_logger(self) -> None:
-        """
-        Configure the console logger with colored output.
-        """
+        """Configure the console logger with colored output."""
         self.custom_console_handler = logging.StreamHandler()
         self.custom_console_handler.setLevel(logging.DEBUG)
 
@@ -81,8 +70,7 @@ class LoggerApi(logging.Logger):
         self.addHandler(self.custom_console_handler)
 
     def _create_file_handler(self) -> None:
-        """
-        Create a timed rotating file handler for logging to disk.
+        """Create a timed rotating file handler for logging to disk.
         Logs rotate at midnight and keep backups for 4 days.
         """
         if not os.path.exists(self._folder_name):
@@ -91,14 +79,10 @@ class LoggerApi(logging.Logger):
             except Exception:
                 pass
 
-        self.custom_file_handler = TimedRotatingFileHandler(
-            self.file_name, when="midnight", interval=1, backupCount=4
-        )
+        self.custom_file_handler = TimedRotatingFileHandler(self.file_name, when="midnight", interval=1, backupCount=4)
         self.custom_file_handler.setLevel(logging.DEBUG)
 
-        file_formatter = logging.Formatter(
-            self.msg_format, self.datetime_format
-        )
+        file_formatter = logging.Formatter(self.msg_format, self.datetime_format)
         self.custom_file_handler.setFormatter(file_formatter)
 
         self.addHandler(self.custom_file_handler)

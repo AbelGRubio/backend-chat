@@ -1,12 +1,9 @@
-from typing import Dict, List
-
 from fastapi import WebSocket
 from starlette.websockets import WebSocketState
 
 
 class ConnectionManager:
-    """
-    Manages active WebSocket connections for a FastAPI application.
+    """Manages active WebSocket connections for a FastAPI application.
 
     This class provides methods to handle client connections and
     disconnections, send messages to individual clients, broadcast messages
@@ -14,16 +11,14 @@ class ConnectionManager:
     """
 
     def __init__(self):
-        """
-        Initialize the connection manager with an empty dictionary of active
+        """Initialize the connection manager with an empty dictionary of active
         connections.
         The dictionary maps client IDs to their respective WebSocket instances.
         """
-        self.active_connections: Dict[str, WebSocket] = {}  # type: ignore
+        self.active_connections: dict[str, WebSocket] = {}  # type: ignore
 
     async def connect(self, client_id: str, websocket: WebSocket):
-        """
-        Accept a new WebSocket connection and register it.
+        """Accept a new WebSocket connection and register it.
 
         :param client_id: Unique identifier for the connecting client.
         :param websocket: The WebSocket connection object.
@@ -32,16 +27,14 @@ class ConnectionManager:
         self.active_connections[client_id] = websocket
 
     def disconnect(self, client_id: str):
-        """
-        Remove a WebSocket connection from the active connections.
+        """Remove a WebSocket connection from the active connections.
 
         :param client_id: The ID of the client to disconnect.
         """
         self.active_connections.pop(client_id, None)
 
     async def send_personal_message(self, message: str, client_id: str):
-        """
-        Send a message to a specific connected client.
+        """Send a message to a specific connected client.
 
         :param message: The text message to send.
         :param client_id: The ID of the target client.
@@ -51,8 +44,7 @@ class ConnectionManager:
             await websocket.send_text(message)
 
     async def broadcast(self, message: str):
-        """
-        Send a message to all currently connected clients.
+        """Send a message to all currently connected clients.
 
         Only clients with an active WebSocket connection (`CONNECTED` state)
         will receive the message.
@@ -69,9 +61,8 @@ class ConnectionManager:
             else:
                 print(f"Skipping client in state: {connection.client_state}")
 
-    def get_connected_users(self) -> List[str]:
-        """
-        Get a list of all currently connected client IDs.
+    def get_connected_users(self) -> list[str]:
+        """Get a list of all currently connected client IDs.
 
         :return: A list of client IDs.
         """

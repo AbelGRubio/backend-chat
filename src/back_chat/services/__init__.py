@@ -1,5 +1,4 @@
-"""
-This package implements the business logic and service layer of the
+"""This package implements the business logic and service layer of the
 application, separating it from request handling and data access.
 """
 

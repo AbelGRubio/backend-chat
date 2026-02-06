@@ -1,5 +1,4 @@
-"""
-This package contains all route definitions (endpoints) for the application,
+"""This package contains all route definitions (endpoints) for the application,
 typically grouped by functionality or resource.
 """
 

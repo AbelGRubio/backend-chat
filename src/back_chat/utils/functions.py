@@ -7,8 +7,7 @@ from ..models import ApiUser, UserSchema
 
 
 def add_user(user_: UserSchema) -> str:
-    """
-    This function adds a user to the database. It first checks if the user's
+    """This function adds a user to the database. It first checks if the user's
     city is unknown and attempts to fetch it using an external API.
     If the user does not already exist in the database,
     it creates a new user entry; otherwise, it returns a message
@@ -34,8 +33,7 @@ def add_user(user_: UserSchema) -> str:
 
 
 def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
-    """
-    This function updates an existing ApiUser instance with new data provided
+    """This function updates an existing ApiUser instance with new data provided
     in a UserSchema instance and returns the updated ApiUser
 
     :param user_: An instance of ApiUser representing the user to be updated.
@@ -44,19 +42,15 @@ def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
 
     :return: An updated ApiUser instance with the new data applied.
     """
-
-    user_.update(**user_update.dict()).where(
-        ApiUser.uid == user_.uid
-    ).execute()
+    user_.update(**user_update.dict()).where(ApiUser.uid == user_.uid).execute()
 
     user_updated = ApiUser.get(ApiUser.uid == user_.uid)
 
     return user_updated
 
 
-async def save_file(file: UploadFile):
-    """
-    Asynchronously saves an uploaded file to disk in chunks and notifies
+async def save_file(file: UploadFile) -> None:
+    """Asynchronously saves an uploaded file to disk in chunks and notifies
     connected clients.
 
     The file is saved in the `SAVE_FOLDER` directory, and any spaces in the
@@ -66,6 +60,8 @@ async def save_file(file: UploadFile):
 
     :param file: The uploaded file to be saved (FastAPI's `UploadFile`).
     """
+    if file is None:
+        return None
     des_ = os.path.join(SAVE_FOLDER, file.filename.replace(" ", "-"))
     LOGGER.debug(f"Saving file: {file.filename}")
     with open(des_, "ab") as f:
@@ -73,3 +69,4 @@ async def save_file(file: UploadFile):
             f.write(content)
     await MANAGER.broadcast(f"File attached: {file.filename} ")
     LOGGER.debug(f"Saved file: {file.filename}")
+    return None

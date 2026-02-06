@@ -1,76 +1,68 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0  # versión de los hooks
+    rev: v6.0.0
     hooks:
-      - id: trailing-whitespace      # elimina espacios finales
-      - id: end-of-file-fixer        # asegura línea final
-      - id: check-added-large-files  # evita commits de archivos muy grandes
+      - id: trailing-whitespace # elimina espacios finales
+      - id: end-of-file-fixer # asegura línea final
+      - id: check-added-large-files # evita commits de archivos muy grandes
       - id: mixed-line-ending
+        args: [--fix=lf]
       - id: check-toml
       - id: check-yaml
         exclude: ^helm_config/.*
       - id: check-json
-        exclude: ^(.vscode/settings.json|helm_config/.*)
+        exclude: ^(.vscode/settings.json|.vscode/launch.json|helm_config/.*)
       - id: pretty-format-json
-        exclude: ^(.vscode/settings.json|helm_config/.*)
+        exclude: ^(.vscode/settings.json|.vscode/launch.json||helm_config/.*)
         args: [--autofix, --no-sort-keys]
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-added-large-files
         args: ["--maxkb=2000"]
 
-  - repo: https://github.com/psf/black
-    rev: 25.9.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.11
     hooks:
-      - id: black
-        language_version: python3.14
-        files: ^src/
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format
 
-  - repo: https://github.com/PyCQA/isort
-    rev: 7.0.0
+  - repo: https://github.com/facebook/pyrefly-pre-commit
+    rev: 0.47.0
     hooks:
-      - id: isort
-        language_version: python3.14
-        files: ^src/
+      - id: pyrefly-check
+        name: Pyrefly (type checking)
+        pass_filenames: false
+        language: system
 
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
+  - repo: https://github.com/checkmake/checkmake.git
+    rev: 0.2.2
     hooks:
-      - id: flake8
-        language_version: python3.14
-        files: ^src/
+      - id: checkmake
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
-    hooks:
-      - id: mypy
-        args: ["--ignore-missing-imports"]
-        language_version: python3.14
-        files: ^src/
-
-  # - repo: local
-  #   hooks:
-  #     - id: ruff
-  #       name: Ruff linting
-  #       entry: ruff check
-  #       language: system
-  #       types: [python]
-  #       args: ["--fix", "--config=pyproject.toml"]
-  #       exclude: \.venv/
-
-  #     - id: ruff-format
-  #       name: Ruff formatting
-  #       entry: ruff format
-  #       language: system
-  #       types: [python]
-  #       args: ["--config=pyproject.toml"]
-  #       exclude: \.venv/
-
-  #     # Optional: Uncomment if you have too many warnings in fast prototyping
-  #     - id: pyright
-  #       name: Pyright type checking
-  #       entry: pyright
-  #       language: system
-  #       types: [python]
-  #       args: ["--project=pyproject.toml"]
-  #       exclude: \.venv/
+#  - repo: local
+#    hooks:
+#      - id: ruff
+#        name: Ruff linting
+#        entry: ruff check
+#        language: system
+#        types: [python]
+#        args: ["--fix", "--config=pyproject.toml"]
+#        exclude: \.venv/
+#
+#      - id: ruff-format
+#        name: Ruff formatting
+#        entry: ruff format
+#        language: system
+#        types: [python]
+#        args: ["--config=pyproject.toml"]
+#        exclude: \.venv/
+#
+#      # Optional: Uncomment if you have too many warnings in fast prototyping
+#      - id: pyright
+#        name: Pyright type checking
+#        entry: pyright
+#        language: system
+#        types: [python]
+#        args: ["--project=pyproject.toml"]
+#        exclude: \.venv/

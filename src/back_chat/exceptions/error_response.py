@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import HTTPException
 
 
@@ -8,7 +6,7 @@ class ErrorHTTPException(HTTPException):
         self,
         status_code=501,
         detail: str = "General error",
-        code: Union[int, str] = "Unknown",
+        code: int | str = "Unknown",
         description: str = "General error",
     ):
         super().__init__(status_code=status_code, detail=detail)
@@ -18,11 +16,7 @@ class ErrorHTTPException(HTTPException):
     def __iter__(self):
         dict_ = {
             "description": self.description,
-            "content": {
-                "application/json": {
-                    "example": {"detail": self.detail, "code": self.code}
-                }
-            },
+            "content": {"application/json": {"example": {"detail": self.detail, "code": self.code}}},
         }
         for key in dict_:
             yield key, dict_[key]

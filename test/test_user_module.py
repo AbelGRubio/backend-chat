@@ -1,10 +1,4 @@
 import unittest
-from unittest.mock import patch, MagicMock, AsyncMock, mock_open
-from types import SimpleNamespace
-import os
-
-from back_chat.utils.functions import add_user, update_user, save_file
-from back_chat.models import UserSchema, ApiUser
 
 
 class TestUserModule(unittest.TestCase):

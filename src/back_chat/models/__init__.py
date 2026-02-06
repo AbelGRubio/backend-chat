@@ -1,16 +1,9 @@
-"""
-This package includes the application's data models, such as ORM definitions
+"""This package includes the application's data models, such as ORM definitions
 or Pydantic schemas, used for database operations and data validation.
 """
 
 from .orm import ApiUser, Message, UserConf
-from .schemas import (
-    MessageSchema,
-    NotificationSchema,
-    ShowUserSchema,
-    UserConnection,
-    UserSchema,
-)
+from .schemas import MessageSchema, NotificationSchema, ShowUserSchema, UserConnection, UserSchema
 
 __all__ = [
     Message.__name__,

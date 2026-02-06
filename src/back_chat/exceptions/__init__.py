@@ -1,5 +1,4 @@
-"""
-This package defines custom exception classes used to handle domain-specific
+"""This package defines custom exception classes used to handle domain-specific
 errors across the application.
 """
 
