@@ -28,41 +28,69 @@ classifiers = [
 ]
 
 
-
 [dependency-groups]
 dev = [
-    "pre-commit>=4.5.0",
-    "python-semantic-release>=10.5.2",
+    "pre-commit==4.5.1",
+    "pyrefly==0.47.0",
+    "pytest==9.0.2",
+    "pytest-asyncio==1.3.0",
+    "pytest-cookies==0.7.0",
+    "pytest-cov==7.0.0",
+    "pytest-xdist==3.8.0",
+    "ruff==0.14.11",
+    "ty==0.0.10",
+    "python-semantic-release>=10.5.3",
     "nodejs>=0.1.1", # required for pyright
     "pyright>=1.1.400",
+    "build",
+    "twine",
+]
+docs = [
+    "sphinx>=8.2.3",
+    "sphinx-autobuild>=2025.8.25",
+    "sphinx-rtd-theme>=3.0.2",
+    "sphinx-autodoc-typehints>=3.5.2",
 ]
 
-# Pyright configuration (static type checker)
-[tool.pyright]
-exclude = [
-    "**/node_modules",
-    "**/__pycache__",
-    "**/.git",
-    "**/.hg",
-    "**/.mypy_cache",
-    "**/.pytest_cache",
-    "**/.ruff_cache",
-    "**/.tox",
-    "**/.venv",
-    "**/build",
-    "**/dist",
-    "**/docs/_build",
-    "**/notebooks_extra",
+
+[tool.semantic_release]
+build_command = """
+ uv build
+"""
+changelog_file = "CHANGELOG.md"
+upload_to_pypi = false
+upload_to_repository = true
+upload_to_vcs_release = true
+tag_commit = true
+version_variables = [
+    "pyproject.toml:version",
+    "src/back_chat/configuration.py:__version__",
 ]
-typeCheckingMode = "standard" # "standard" balances strictness and practicality
 
+[tool.semantic_release.remote]
+type = "github"
+token = { env = "GITHUB_TOKEN" }  # env var con tu PAT
+create_release = true
 
-# Ruff configuration (linter and formatter)
+[tool.semantic_release.branches.master]
+match = "master"
+prerelease = false
+
+[tool.semantic_release.branches.develop]
+match = "develop"
+prerelease = true
+prerelease_token = "rc"
+
+# [tool.semantic_release.changelog.default_templates]
+# changelog_file = "CHANGELOG.md"
+
 [tool.ruff]
-target-version = "py314"
-line-length = 79
-fix = true
-extend-exclude = [".venv", "build", "dist", "notebooks_extra"]
+preview = true
+target-version = "py313"
+line-length = 120
+indent-width = 4
+extend-exclude = [".venv", "build", "dist", "notebooks_extra", "tests", "docs", "src/__main__gp.py"]
+
 
 [tool.ruff.format]
 quote-style = "double"
@@ -70,6 +98,7 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
+
 
 [tool.ruff.lint]
 select = [
@@ -93,23 +122,23 @@ select = [
     "W",   # pycodestyle warnings
     "YTT", # flake8-2020
 ]
-ignore = [
-    "B007",    # Unused loop variable
-    "B008",    # Function call in argument defaults
-    "C901",    # Function too complex
-    "D105",    # Missing docstring in magic method
-    "D203",    # Blank line before class docstring
-    "D205",    # Blank line between summary and description
-    "D212",    # Multi-line docstring summary
-    "D415",    # First line punctuation
-    "ANN401",  # Dynamically typed expressions
-    "FBT001",  # Boolean flag in function
-    "FBT002",  # Default Boolean flag
-    "PLR0913", # Too many arguments
-    "G004",    # f-string in log
-    "S101",    # Use of assert detected
-    "T201",    # `print` found
+ignore = ["ANN401"]
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["orion"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
 ]
+
 
 [tool.ruff.lint.per-file-ignores]
 "**/notebooks_extra/**" = ["ALL"]
@@ -117,70 +146,89 @@ ignore = [
 "**/__init__.py" = ["D104", "F401"]
 "tests/**" = ["S101", "D103", "D100", "D104", "SLF001", "B018"]
 
-[tool.ruff.lint.pydocstyle]
-convention = "google"
 
-[tool.ruff.lint.isort]
-required-imports = ["from __future__ import annotations"]
+[tool.ty.rules]
 
-[tool.deptry]
 
-# Pytest configuration
-[tool.pytest.ini_options]
-minversion = "7.0"
-markers = ["slow: marks tests as slow (deselect with '-m \"not slow\"')"]
-addopts = [
-    "--cov=src",
-    "--cov-report=html",
-    "--cov-report=xml",
-    "--cov-fail-under=0", # Tune this value to your needs
-    "--maxfail=2 --disable-warnings",
-    "-ra",
-    "-q",
+[tool.ty.environment]
+python = "./.venv"
+python-version = "3.13"
+python-platform = "linux"
+root = ["."]
+extra-paths = []
+
+
+[tool.ty.src]
+respect-ignore-files = false
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__", "**/*venv/**/*", "./build"]
+
+
+[tool.pyrefly]
+use-ignore-files = false
+project-includes = ["src"]
+project-excludes = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/*venv/**/*",
+    "**/tests",
 ]
+
+search-path = [
+    "src",
+]
+python-platform = "linux"
+python-version = "3.13"
+python-interpreter-path = ".venv/bin/python3"
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+norecursedirs = "./cfg"
+asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "-n",
+    "auto",
+    "--cov=src",
+    "--cov-report=xml",
+    "--cov-report=json",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+]
+markers = ["slow: marks tests as slow (deselect with '-m \"not slow\"')"]
 python_files = "test_*.py tests_*.py *_test.py"
 python_classes = "*Test Test* Describe*"
 python_functions = "test_* it_* should_* scenario_*"
 
-# Coverage configuration
+
+
+
+
 [tool.coverage.report]
-skip_empty = true
+fail_under = 80          # número entero o float (ej: 85.5)
+show_missing = true
+skip_covered = true
+precision = 2            # cuántos decimales mostrar
+sort = "Cover"           # o "Miss", "Name", etc.
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
 
-[tool.coverage.run]
-branch = true
-source = ["src"]
 
-
-[tool.semantic_release]
-commit_message="v{version}"
-branch="master"
-upload="twine upload dist/*"
-upload_to_pypi = false
-upload_to_repository = true
-tag_commit = "true"
-changelog_file="CHANGELOG.md"
-build_command = "uv build"
-version_variables = ["src/back_chat/configuration.py:__version__", "pyproject.toml:version"]
-
-[tool.uv.extra-build-dependencies]
-backend-chat = ["python-keycloak", "peewee", "fastapi", "aio_pika", "colorama", "python-multipart"]
-
-[tool.semantic_release.publish]
-dist_glob_patterns = ["dist/*"]
-upload="twine upload dist/*"
-upload_to_vcs_release = true
-upload_to_pypi = true
-build_command = "python setup.py sdist; python setup.py bdist_wheel"
-
-[tool.flake8]
-max-line-length = 79
-ignore = ["E203", "W503"]
-exclude = [".venv", "./docs"]
-
-[tool.black]
-line-length = 79
-
-[tool.isort]
-profile = "black"
-line_length = 79
+[tool.hatch.build.targets.wheel]
+packages = ["src/das_server"]
+[tool.hatch.build]
+exclude = [
+ ".venv",
+ ".cache",
+ "__pycache__",
+ "*.pyc",
+ ".git",
+ ".github",
+]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

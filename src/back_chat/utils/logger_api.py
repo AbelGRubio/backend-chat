@@ -86,7 +86,10 @@ class LoggerApi(logging.Logger):
         Logs rotate at midnight and keep backups for 4 days.
         """
         if not os.path.exists(self._folder_name):
-            os.mkdir(self._folder_name)
+            try:
+                os.mkdir(self._folder_name)
+            except Exception:
+                pass
 
         self.custom_file_handler = TimedRotatingFileHandler(
             self.file_name, when="midnight", interval=1, backupCount=4

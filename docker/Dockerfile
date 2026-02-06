@@ -1,10 +1,24 @@
-FROM python:3.12.11-slim
-LABEL authors="agrubio"
+# =========================
+# Builder
+# =========================
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS builder
 
-COPY requirements.txt .
-COPY src .
-RUN python -m pip install -r requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-EXPOSE 8000
+WORKDIR /app
+ENV PYTHONPATH="/app/src:${PYTHONPATH}"
 
-CMD ["python", "src"]
+# Copiar solo archivos para deps
+COPY pyproject.toml uv.lock ./
+COPY README.md .
+
+# Instalar dependencias + proyecto, directo en el Python del sistema
+RUN uv sync --no-dev
+
+COPY src/ src/
+COPY ./conf ./conf
+
+EXPOSE 5000
+
+CMD ["uv", "run", "python", "src"]
