@@ -1,3 +1,5 @@
+"""Rabbit mq manager."""
+
 import asyncio
 
 from aio_pika import Channel, Message, Queue, connect
@@ -20,7 +22,8 @@ class RabbitMQManager:
     :param logger: Optional logger for debug and error logging.
     """
 
-    def __init__(self, rabbitmq_url: str, manager, max_retries: int = 3, logger=None):
+    def __init__(self, rabbitmq_url: str, manager, max_retries: int = 3, logger=None) -> None:
+        """Init rabbitmq."""
         self.rabbitmq_url = rabbitmq_url
         self.manager = manager
         self.max_retries = max_retries
@@ -37,7 +40,7 @@ class RabbitMQManager:
         for attempt in range(self.max_retries):
             try:
                 self.connection = await connect(self.rabbitmq_url)
-                self.channel = await self.connection.channel()  # type: ignore
+                self.channel = await self.connection.channel()
                 return True
             except AMQPConnectionError as e:
                 if self.logger:
@@ -46,7 +49,7 @@ class RabbitMQManager:
         await self.manager.broadcast("Redundancy service is not available.")
         return False
 
-    async def publish_message(self, queue_name: str, message: str):
+    async def publish_message(self, queue_name: str, message: str) -> None:
         """Publish a message to a RabbitMQ queue.
 
         :param queue_name: Name of the target queue.
@@ -59,7 +62,7 @@ class RabbitMQManager:
                 return
 
         try:
-            await self.channel.default_exchange.publish(  # type: ignore
+            await self.channel.default_exchange.publish(
                 Message(body=message.encode()),
                 routing_key=queue_name,
             )
@@ -69,7 +72,7 @@ class RabbitMQManager:
             if self.logger:
                 self.logger.error(f"Failed to publish message: {e}")
 
-    async def publish_message_to_exchange(self, exchange_name: str, message: str, routing_key: str = ""):
+    async def publish_message_to_exchange(self, exchange_name: str, message: str, routing_key: str = "") -> None:
         """Publish a message to a RabbitMQ exchange.
 
         :param exchange_name: Name of the exchange.
@@ -83,9 +86,7 @@ class RabbitMQManager:
                 return
 
         try:
-            exchange = await self.channel.declare_exchange(  # type: ignore
-                exchange_name, type="fanout"
-            )
+            exchange = await self.channel.declare_exchange(exchange_name, type="fanout")
             await exchange.publish(Message(body=message.encode()), routing_key=routing_key)
             if self.logger:
                 self.logger.debug(f"Message published to exchange {exchange_name}: {message}")
@@ -93,9 +94,8 @@ class RabbitMQManager:
             if self.logger:
                 self.logger.error(f"Failed to publish message to exchange: {e}")
 
-    async def consume_messages(self, queue_name: str):
-        """Consume messages from a RabbitMQ queue and broadcast them via
-        WebSockets.
+    async def consume_messages(self, queue_name: str) -> None:
+        """Consume messages from a RabbitMQ queue and broadcast them via WebSockets.
 
         :param queue_name: Name of the queue to consume from.
         """
@@ -106,10 +106,8 @@ class RabbitMQManager:
                 return
 
         try:
-            self.queue = await self.channel.declare_queue(  # type: ignore
-                queue_name, durable=True
-            )
-            async for message in self.queue:  # type: ignore
+            self.queue = await self.channel.declare_queue(queue_name, durable=True)
+            async for message in self.queue:
                 async with message.process():
                     if self.logger:
                         self.logger.debug(f"Received message: {message.body.decode()}")
@@ -119,9 +117,8 @@ class RabbitMQManager:
                 self.logger.error(f"Failed to consume messages: {e}")
             await self.manager.broadcast("Redundancy service is not available.")
 
-    async def consume_messages_from_exchange(self, exchange_name: str):
-        """Consume messages from a RabbitMQ exchange and broadcast them via
-        WebSockets.
+    async def consume_messages_from_exchange(self, exchange_name: str) -> None:
+        """Consume messages from a RabbitMQ exchange and broadcast them via WebSockets.
 
         :param exchange_name: Name of the exchange to consume from.
         """
@@ -132,12 +129,10 @@ class RabbitMQManager:
                 return
 
         try:
-            exchange = await self.channel.declare_exchange(  # type: ignore
-                exchange_name, type="fanout"
-            )
-            queue = await self.channel.declare_queue("", exclusive=True)  # type: ignore
+            exchange = await self.channel.declare_exchange(exchange_name, type="fanout")
+            queue = await self.channel.declare_queue("", exclusive=True)
             await queue.bind(exchange)
-            async for message in queue:  # type: ignore
+            async for message in queue:
                 async with message.process():
                     await self.manager.broadcast(message.body.decode())
         except Exception as e:

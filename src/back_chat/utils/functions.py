@@ -1,3 +1,5 @@
+"""Functions."""
+
 import os.path
 
 from fastapi import UploadFile
@@ -7,8 +9,9 @@ from ..models import ApiUser, UserSchema
 
 
 def add_user(user_: UserSchema) -> str:
-    """This function adds a user to the database. It first checks if the user's
-    city is unknown and attempts to fetch it using an external API.
+    """This function adds a user to the database.
+
+    It first checks if the user's city is unknown and attempts to fetch it using an external API.
     If the user does not already exist in the database,
     it creates a new user entry; otherwise, it returns a message
     indicating the user already exists.
@@ -33,8 +36,9 @@ def add_user(user_: UserSchema) -> str:
 
 
 def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
-    """This function updates an existing ApiUser instance with new data provided
-    in a UserSchema instance and returns the updated ApiUser
+    """This function updates an existing ApiUser instance with new data provided.
+
+    Data in a UserSchema instance and returns the updated ApiUser
 
     :param user_: An instance of ApiUser representing the user to be updated.
     :param user_update:  An instance of UserSchema containing the new data
@@ -50,8 +54,7 @@ def update_user(user_: ApiUser, user_update: UserSchema) -> ApiUser:
 
 
 async def save_file(file: UploadFile) -> None:
-    """Asynchronously saves an uploaded file to disk in chunks and notifies
-    connected clients.
+    """Asynchronously saves an uploaded file to disk in chunks and notifies connected clients.
 
     The file is saved in the `SAVE_FOLDER` directory, and any spaces in the
     filename are replaced with hyphens. The file is written in append-binary

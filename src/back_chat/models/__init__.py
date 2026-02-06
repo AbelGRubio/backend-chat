@@ -1,5 +1,6 @@
-"""This package includes the application's data models, such as ORM definitions
-or Pydantic schemas, used for database operations and data validation.
+"""This package includes the application's data models.
+
+Such as ORM definitions or Pydantic schemas, used for database operations and data validation.
 """
 
 from .orm import ApiUser, Message, UserConf

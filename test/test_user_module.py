@@ -1,7 +1,11 @@
+"""TEst user module."""
+
 import unittest
 
 
 class TestUserModule(unittest.TestCase):
+    """Test module."""
+
     pass
     # @patch("back_chat.models.ApiUser")
     # def test_add_user_new(self, mock_api_user):

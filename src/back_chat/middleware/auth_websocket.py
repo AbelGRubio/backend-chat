@@ -1,3 +1,5 @@
+"""Websocket."""
+
 from fastapi import WebSocket
 
 from ..configuration import KEYCLOAK_OPENID

@@ -1,3 +1,5 @@
+"""Error."""
+
 from fastapi import HTTPException
 
 

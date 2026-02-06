@@ -1,5 +1,6 @@
-"""This package contains all route definitions (endpoints) for the application,
-typically grouped by functionality or resource.
+"""This package contains all route definitions (endpoints) for the application.
+
+Typically grouped by functionality or resource.
 """
 
 from .api_routes import api_router
