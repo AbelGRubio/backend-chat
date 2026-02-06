@@ -1,7 +1,4 @@
-"""
-This package defines custom exception classes used to handle domain-specific
-errors across the application.
-"""
+"""This package defines custom exception classes used to handle domain-specific errors across the application."""
 
 from .error_response import BadRequest, ErrorHTTPException
 

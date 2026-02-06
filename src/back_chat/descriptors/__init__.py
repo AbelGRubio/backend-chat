@@ -1,6 +1,6 @@
-"""
-This package contains custom Python descriptors used to control attribute
-access and behavior within models or services.
+"""This package contains custom Python descriptors.
+
+Used to control attribute access and behavior within models or services.
 """
 
 from .message import MessageMode, MessageType

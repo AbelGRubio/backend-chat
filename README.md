@@ -62,7 +62,7 @@ uvicorn src.back_chat:app --host 0.0.0.0 --port 8000
 ```
 ---
 
-## Important configuration 
+## Important configuration
 ```ini
 [conf]
 api_ip = localhost

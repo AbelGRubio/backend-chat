@@ -1,7 +1,4 @@
-"""
-This package implements the business logic and service layer of the
-application, separating it from request handling and data access.
-"""
+"""This package implements the business logic and service layer."""
 
 from .connection_manager import ConnectionManager
 from .rabbitmq_manager import RabbitMQManager

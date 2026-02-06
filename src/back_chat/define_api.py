@@ -1,6 +1,4 @@
-"""
-Defines and initializes the FastAPI application, including route registration
-and middleware setup.
+"""Defines and initializes the FastAPI application, including route registration and middleware setup.
 
 This module serves as the main entry point for assembling the API structure
 and exposing the application instance for use with ASGI servers.
@@ -11,13 +9,7 @@ import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .configuration import (
-    CORS_ORIGINS,
-    DATABASE,
-    LOGGER,
-    RABBITMQ_MANAGER,
-    __version__,
-)
+from .configuration import CORS_ORIGINS, DATABASE, LOGGER, RABBITMQ_MANAGER, __version__
 from .middleware.auth import AuthMiddleware
 from .models import ApiUser, Message, UserConf
 from .routes import api_router, v1_router, ws_router
@@ -29,18 +21,12 @@ APP = FastAPI(
 )
 
 
-APP.include_router(
-    router=api_router, prefix="/api", tags=["Service 1: API endpoints"]
-)
+APP.include_router(router=api_router, prefix="/api", tags=["Service 1: API endpoints"])
 
 
-APP.include_router(
-    router=v1_router, prefix="/v1", tags=["Service 2: v1 endpoints"]
-)
+APP.include_router(router=v1_router, prefix="/v1", tags=["Service 2: v1 endpoints"])
 
-APP.include_router(
-    router=ws_router, prefix="/ws", tags=["Service 3: web socket"]
-)
+APP.include_router(router=ws_router, prefix="/ws", tags=["Service 3: web socket"])
 
 
 APP.add_middleware(AuthMiddleware)
@@ -58,13 +44,12 @@ DATABASE.create_tables([Message, UserConf, ApiUser])
 
 
 @APP.on_event("startup")
-async def startup_event():
+async def startup_event() -> None:
+    """Start up event"""
     try:
         connected = await RABBITMQ_MANAGER.connect()
     except Exception as e:
         LOGGER.error(f"Connection error with RabbitMQ: {e}")
         connected = False
     if connected:
-        asyncio.create_task(
-            RABBITMQ_MANAGER.consume_messages_from_exchange("notifications")
-        )
+        asyncio.create_task(RABBITMQ_MANAGER.consume_messages_from_exchange("notifications"))

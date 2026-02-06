@@ -1,5 +1,4 @@
-"""
-REST API endpoints for user management, message handling, and file uploads.
+"""REST API endpoints for user management, message handling, and file uploads.
 
 Includes:
 
@@ -12,7 +11,6 @@ Includes:
 """
 
 import asyncio
-from typing import List
 
 from fastapi import APIRouter, File, Request, UploadFile
 from fastapi.responses import JSONResponse
@@ -20,12 +18,7 @@ from fastapi.responses import JSONResponse
 from ..configuration import LOGGER, MANAGER
 from ..middleware.auth import AuthMiddleware
 from ..models import ApiUser, Message
-from ..models.schemas import (
-    MessageSchema,
-    ShowUserSchema,
-    UserConnection,
-    UserSchema,
-)
+from ..models.schemas import MessageSchema, ShowUserSchema, UserConnection, UserSchema
 from ..utils.functions import add_user, save_file, update_user
 
 v1_router = APIRouter()
@@ -33,8 +26,7 @@ v1_router = APIRouter()
 
 @v1_router.post("/user", response_class=JSONResponse)
 def adding_user(user_parameter: UserSchema) -> JSONResponse:
-    """
-    Add a new user to the database.
+    """Add a new user to the database.
 
     Handles exceptions and logs any errors that may occur during creation.
 
@@ -53,9 +45,8 @@ def adding_user(user_parameter: UserSchema) -> JSONResponse:
 
 
 @v1_router.post("/upload-files/")
-async def upload_files(files: List[UploadFile] = File(...)):
-    """
-    Upload one or more files asynchronously.
+async def upload_files(files: list[UploadFile] = File(...)):
+    """Upload one or more files asynchronously.
 
     :param files: List of files to upload.
     :return: Dictionary with names of uploaded files.
@@ -66,9 +57,8 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
 
 @v1_router.get("/connected-users")
-async def get_connected_users() -> List[UserConnection]:
-    """
-    Get the list of currently connected WebSocket users.
+async def get_connected_users() -> list[UserConnection]:
+    """Get the list of currently connected WebSocket users.
 
     :return: List of user names wrapped in UserConnection schema.
     """
@@ -78,8 +68,7 @@ async def get_connected_users() -> List[UserConnection]:
 
 @v1_router.get("/user-info")
 def get_user_conf(request: Request) -> JSONResponse:
-    """
-    Retrieve user configuration from the request's authentication token.
+    """Retrieve user configuration from the request's authentication token.
 
     :param request: HTTP request object containing headers and cookies.
     :return: JSON response with user configuration or 400 if not found.
@@ -89,10 +78,9 @@ def get_user_conf(request: Request) -> JSONResponse:
     return JSONResponse(content=config or {}, status_code=status)
 
 
-@v1_router.get("/users/", response_model=List[ShowUserSchema])
+@v1_router.get("/users/", response_model=list[ShowUserSchema])
 def user_listing():
-    """
-    List all users in the database.
+    """List all users in the database.
 
     :return: List of users with limited (safe-to-expose) data.
     """
@@ -101,9 +89,8 @@ def user_listing():
 
 
 @v1_router.get("/messages")
-def get_messages(request: Request) -> List[MessageSchema]:
-    """
-    Retrieve the 10 most recent messages.
+def get_messages(request: Request) -> list[MessageSchema]:
+    """Retrieve the 10 most recent messages.
 
     Marks messages as "isMine=True" if sent by the requesting user.
 
@@ -123,8 +110,7 @@ def get_messages(request: Request) -> List[MessageSchema]:
 
 @v1_router.put("/users/{user_id}", response_model=UserSchema)
 def updating_user(user_id: str, user_update: UserSchema):
-    """
-    Update an existing user.
+    """Update an existing user.
 
     :param user_id: ID of the user to update.
     :param user_update: Updated user data.
@@ -140,8 +126,7 @@ def updating_user(user_id: str, user_update: UserSchema):
 
 @v1_router.delete("/users/{user_id}")
 def delete_user(user_id: int):
-    """
-    Delete a user by ID.
+    """Delete a user by ID.
 
     :param user_id: ID of the user to delete.
     :return: Success message or 404 if user not found.
@@ -156,8 +141,7 @@ def delete_user(user_id: int):
 
 @v1_router.delete("/messages")
 def delete_messages():
-    """
-    Delete all chat messages from the database.
+    """Delete all chat messages from the database.
 
     :return: Confirmation message.
     """

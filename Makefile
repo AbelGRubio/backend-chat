@@ -17,7 +17,7 @@ CONTAINER_NAME  := $(shell echo "$(PROJECT_NAME)" | tr '[:upper:]' '[:lower:]' |
 VERSION         := $(shell git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
 REPO_URL        := $(shell git remote get-url origin 2>/dev/null)
 REGISTRY_URL    := $(shell echo "$(REPO_URL)" | \
-                     sed -e 's|https://gitlab\.com/|https://registry.com/|' \
+                     sed -e 's|https://gitlab\.com/|https://github.com/|' \
                          -e 's|\.git$$||')
 REGISTRY_PATH   := $(shell echo "$(REGISTRY_URL)" | sed 's|https://||')
 
@@ -50,8 +50,7 @@ help:  ## Show this help message
 	@echo "Usage: make $(UNDERLINE)target$(NO_COLOR)"
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
-		awk 'BEGIN {FS = ":.*?## "}; \
-		{printf "  $(INFO)%-22s$(NO_COLOR) %s\n", $$1, $$2}'
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  $(INFO)%-22s$(NO_COLOR) %s\n", $$1, $$2}'
 
 # ──────────────────────────────────────────────────────────────────────────────
 #  Environment & Dependencies
@@ -81,14 +80,6 @@ venv:  ## Activate virtual environment in current shell
 	@echo "$(INFO)Activating virtual environment...$(NO_COLOR)"
 	@bash -c "source $(ENV_SCRIPT) && exec bash"
 
-update: check-venv  ## Update dependencies & pre-commit hooks
-	@echo "$(ARROW) Updating uv lockfile..."
-	@uv lock --upgrade || { echo "$(FAIL) Failed to upgrade lockfile"; exit 1; }
-	@echo "$(ARROW) Syncing environment..."
-	@uv sync --extra optional || { echo "$(FAIL) Failed to sync environment"; exit 1; }
-	@echo "$(ARROW) Updating pre-commit hooks..."
-	@uv run pre-commit autoupdate || { echo "$(FAIL) Failed to update hooks"; exit 1; }
-	@echo "$(OK) Dependencies & hooks updated"
 
 # ──────────────────────────────────────────────────────────────────────────────
 #  Quality & Tests
@@ -127,7 +118,7 @@ build: check-venv  ## Build python package(s)
 
 semantic-release: check-venv  ## Calculate next version (dry-run)
 	@echo "$(ARROW) Running semantic-release version..."
-	@uv run semantic-release version
+	@uv run semantic-release version --verbose
 	@echo "$(OK) Semantic release version check completed"
 
 publish: check-venv  ## Publish release using semantic-release
@@ -154,7 +145,7 @@ docker-build:  ## Build multi-platform Docker image (arm64 focused)
 		--load .
 	@echo "$(OK) Docker image built"
 
-docker-push: docker-build  ## Push Docker image to registry
+docker-push:   ## Push Docker image to registry
 	@echo "$(ARROW) Pushing images to registry..."
 	@docker push $(REGISTRY_PATH):$(VERSION)
 	@docker push $(REGISTRY_PATH):latest
@@ -166,6 +157,10 @@ docker-run:  ## Run container locally (port 5000)
 	@-docker rm $(CONTAINER_NAME) 2>/dev/null || true
 	@docker run -d --name $(CONTAINER_NAME) -p 5000:5000 $(REGISTRY_PATH):$(VERSION)
 	@echo "$(OK) Container running → http://localhost:5000"
+
+docker-logs:  ## Show logs of the running container
+	@echo "$(ARROW) Showing logs for container $(INFO)$(CONTAINER_NAME)$(NO_COLOR)..."
+	@docker logs -f $(CONTAINER_NAME)
 
 docker-stop:  ## Stop and remove container
 	@echo "$(ARROW) Stopping container $(INFO)$(CONTAINER_NAME)$(NO_COLOR)..."
@@ -201,8 +196,7 @@ docs: rst  ## Build HTML documentation
 clean:  ## Remove temporary files, caches and build artifacts
 	@echo "$(ARROW) Cleaning project..."
 	@find . -type d \( -name "__pycache__" -o -name ".pytest_cache" -o -name ".ruff_cache" \
-		-o -name "htmlcov" -o -name "build" -o -name "dist" -o -name "*.egg-info" \) \
-		-exec rm -rf {} + 2>/dev/null || true
+		-o -name "htmlcov" -o -name "build" -o -name "dist" -o -name "*.egg-info" \) -exec rm -rf {} + 2>/dev/null || true
 	@find . -type f \( -name "*.pyc" -o -name ".coverage*" -o -name "coverage.xml" \) -delete 2>/dev/null || true
 	@echo "$(OK) Cleanup completed"
 

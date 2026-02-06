@@ -1,7 +1,9 @@
+"""Schemas."""
+
 import datetime
 import json
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 from ..descriptors import MessageMode, MessageType
 
@@ -48,7 +50,7 @@ class MessageSchema(BaseModel):
         orm_mode = True
         from_attributes = True
 
-    @validator("mtype")
+    @field_validator("mtype")
     def validate_mode(cls, v):
         if isinstance(v, MessageType):
             v = v.value
@@ -80,7 +82,7 @@ class NotificationSchema(BaseModel):
         __type_descriptor__ = MessageMode()
         from_attributes = True
 
-    @validator("type")
+    @field_validator("type")
     def validate_mode(cls, v):
         if isinstance(v, MessageType):
             v = v.value

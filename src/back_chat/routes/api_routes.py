@@ -1,3 +1,5 @@
+"""Api routes."""
+
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
@@ -8,8 +10,7 @@ api_router = APIRouter()
 
 @api_router.get("/health")
 def health() -> JSONResponse:
-    """
-    Health check endpoint.
+    """Health check endpoint.
 
     Returns the current application version to confirm that the API is up and
     running.
@@ -17,15 +18,12 @@ def health() -> JSONResponse:
     :return: JSON response containing the app version.
     """
     status_code = 200
-    return JSONResponse(
-        content={"version": __version__}, status_code=status_code
-    )
+    return JSONResponse(content={"version": __version__}, status_code=status_code)
 
 
 @api_router.on_event("shutdown")
 def close_db():
-    """
-    Application shutdown event handler.
+    """Application shutdown event handler.
 
     Ensures that the database connection is properly closed
     when the FastAPI application stops.

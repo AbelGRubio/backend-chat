@@ -1,6 +1,6 @@
-"""
-back_chat is the backend service for a real-time chat application, built with
-Python and designed with redundancy and reliability in mind.
+"""back_chat is the backend service for a real-time chat application.
+
+Built with Python and designed with redundancy and reliability in mind.
 
 It provides WebSocket-based messaging, user session handling, and integration
 with authentication systems. The architecture supports failover and horizontal

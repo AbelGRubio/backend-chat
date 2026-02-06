@@ -1,17 +1,15 @@
+"""Auth middleware."""
+
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from starlette.middleware.base import (
-    BaseHTTPMiddleware,
-    RequestResponseEndpoint,
-)
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.responses import Response
 
 from ..configuration import KEYCLOAK_OPENID
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
-    """
-    Middleware to handle authentication for incoming HTTP requests.
+    """Middleware to handle authentication for incoming HTTP requests.
 
     This middleware intercepts requests and determines if they need
     authentication based on a predefined list of paths that can bypass
@@ -37,17 +35,12 @@ class AuthMiddleware(BaseHTTPMiddleware):
     __auth__ = "authorization"
 
     def __init__(self, *args, **kwargs):
-        """
-        Initialize the middleware by calling the parent class initializer.
-        """
+        """Initialize the middleware by calling the parent class initializer."""
         super().__init__(*args, **kwargs)
 
     @staticmethod
-    def unauthorised(
-        code: int = 401, msg: str = "Unauthorised"
-    ) -> JSONResponse:
-        """
-        Return a JSON response indicating an unauthorized access attempt.
+    def unauthorised(code: int = 401, msg: str = "Unauthorised") -> JSONResponse:
+        """Return a JSON response indicating an unauthorized access attempt.
 
         :param code: HTTP status code to return (default 401).
         :param msg: Message to include in the response body
@@ -57,8 +50,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return JSONResponse(status_code=code, content=msg)
 
     def _is_jump_url_(self, request: Request) -> bool:
-        """
-        Check if the requested URL path is in the list of paths that do not
+        """Check if the requested URL path is in the list of paths that do not
         require auth.
 
         :param request: The incoming HTTP request.
@@ -68,8 +60,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return request.url.path in self.__jump_paths__
 
     def decode_token(self, token: str):
-        """
-        Decode a JWT token after stripping 'Bearer ' prefix.
+        """Decode a JWT token after stripping 'Bearer ' prefix.
 
         :param token: Raw token string from the authorization header.
         :return: Decoded token payload (usually a dict).
@@ -81,8 +72,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return payload
 
     def get_header_token(self, request: Request) -> str:
-        """
-        Get the authorization token from the request headers.
+        """Get the authorization token from the request headers.
 
         :param request: The incoming HTTP request.
         :return: Authorization header value or empty string if missing.
@@ -90,8 +80,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return request.headers.get(self.__auth__, "")
 
     def get_user_config(self, request: Request) -> dict | None:
-        """
-        Extract user configuration by decoding the JWT token from the request.
+        """Extract user configuration by decoding the JWT token from the request.
 
         :param request: The incoming HTTP request.
         :return: Decoded token payload dict if valid, else None.
@@ -104,8 +93,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return None
 
     def is_auth(self, request: Request) -> dict | None:
-        """
-        Check whether the request is authenticated.
+        """Check whether the request is authenticated.
 
         Currently implemented by trying to get user config from token.
 
@@ -114,11 +102,8 @@ class AuthMiddleware(BaseHTTPMiddleware):
         """
         return self.get_user_config(request)
 
-    async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint
-    ) -> Response:
-        """
-        Process incoming HTTP request, enforcing authentication if required.
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
+        """Process incoming HTTP request, enforcing authentication if required.
 
         If the request path is in the bypass list, it proceeds without checks.
         Otherwise, it verifies authentication and returns an unauthorized
